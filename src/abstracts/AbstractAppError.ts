@@ -1,0 +1,48 @@
+import ErrorType from "../errorHandler/ErrorType";
+import IAppError from "../interface/IAppError";
+
+abstract class AbstractAppError<T> extends Error {
+  public name: string;
+  public message: string;
+  public isTrustedError: boolean;
+  public type: ErrorType;
+  public context?: T;
+  private _createdAt: Date;
+
+  get createdAt(): Date {
+    return this._createdAt;
+  }
+
+  constructor(
+    name: string,
+    message: string,
+    isTrustedError: boolean,
+    type: ErrorType,
+    context?: T,
+  ) {
+    super();
+    this.name = name;
+    this.message = message;
+    this.isTrustedError = isTrustedError;
+    this.type = type;
+    this.context = context;
+    this._createdAt = new Date();
+  }
+
+  public getContext(): any {
+    return this.context;
+  }
+
+  public getFormat(): IAppError<T> {
+    return {
+      name: this.name,
+      message: this.message,
+      isTrustedError: this.isTrustedError,
+      type: this.type,
+      context: this.context,
+      createdAt: this._createdAt,
+    };
+  }
+}
+
+export default AbstractAppError;
