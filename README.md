@@ -1,4 +1,4 @@
-![project logo](./public/images/jwtauthlogo.png)
+![project logo](./public/images/jwtauthlogo.jpg)
 
 # Application Core
 
