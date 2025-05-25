@@ -1,9 +1,9 @@
 import AbstractService from "./AbstractService";
 
 abstract class AbstractAuthManager<T> {
-  protected service: AbstractService<T>;
+  protected service: AbstractService<T, any>;
 
-  constructor(service: AbstractService<T>) {
+  constructor(service: AbstractService<T, any>) {
     this.service = service;
   }
 

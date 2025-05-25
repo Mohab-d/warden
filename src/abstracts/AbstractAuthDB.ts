@@ -9,11 +9,3 @@ abstract class AbstractAuthDB {
 }
 
 export default AbstractAuthDB;
-
-/*
- * insertOne()
- * insertMany()
- * getOne(id)
- * getMany(ids[], start, end)
- *
- * */

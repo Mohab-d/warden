@@ -1,5 +1,3 @@
-import AbstractAuthDB from "./AbstractAuthDB";
-
 abstract class AbstractService<T, RepoType> {
   public async saveClient(data: T): Promise<T> {
     throw "Please define your save method";
