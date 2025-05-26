@@ -1,6 +1,6 @@
 ![project logo](./public/images/jwtauthlogo.jpg)
 
-# Application Core
+# Warden
 
 This project provides a robust and extensible framework for handling authentication, error management, and data persistence in a TypeScript application. It leverages abstract classes, factories, and registries to promote a modular and maintainable design.
 
