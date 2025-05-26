@@ -1,5 +1,9 @@
 ![project logo](./public/images/jwtauthlogo.jpg)
 
+# Important > [!NOTE]
+
+> This project isn't usable yet, it does not include tests, and it still works on a predefined experimental database.
+
 # Warden
 
 This project provides a robust and extensible framework for handling authentication, error management, and data persistence in a TypeScript application. It leverages abstract classes, factories, and registries to promote a modular and maintainable design.
