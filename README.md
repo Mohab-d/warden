@@ -1,4 +1,4 @@
-![project logo](./public/images/jwtauthlogo.jpg)
+![project logo](./public/images/wardenLogo.jpg.jpg)
 
 # Important > [!NOTE]
 
