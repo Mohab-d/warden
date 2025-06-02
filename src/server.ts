@@ -4,6 +4,7 @@ import errorHandler from "./controllers/errorHandler";
 import { appConfigs } from "./config/appConfigs";
 import morgan from "morgan";
 import authRouter from "./routes/auth/authRouter";
+import APIResBuilder from "./builders/APIResBuilder";
 
 const authApp = express();
 
@@ -17,6 +18,16 @@ authApp.use("/auth", authRouter);
 
 // error handling
 authApp.use(errorHandler);
+
+authApp.use((req, res) => {
+  const notFoundRes = new APIResBuilder()
+    .setSuccess(false)
+    .setHttpCode(404)
+    .setMessage("This route does not exist")
+    .build();
+
+  res.status(notFoundRes.httpCode).send(notFoundRes);
+});
 
 // main loop
 authApp.listen(appConfigs.port, (error) =>

@@ -1,12 +1,6 @@
-import IAuthData from "../interface/IAuthData";
+import IAuthData from "./IAuthData";
 
-class AbstractAuthStrategy<T, RepoType> {
-  protected _repo: RepoType;
-
-  constructor(repo: RepoType) {
-    this._repo = repo;
-  }
-
+class IAuthStrategy<T> {
   public async signup(clientData: T): Promise<IAuthData<T>> {
     throw "Not impelemnted";
   }
@@ -20,4 +14,4 @@ class AbstractAuthStrategy<T, RepoType> {
   }
 }
 
-export default AbstractAuthStrategy;
+export default IAuthStrategy;

@@ -12,7 +12,7 @@ This project provides a robust and extensible framework for handling authenticat
 
 The system is built around several key abstract classes and their concrete implementations:
 
-- **AbstractAppError**: A custom error class for standardized error handling. It provides detailed error information, including a type, a isTrustedError flag (for safe client exposure), and a context object.
+- **AbstractAppError**: A custom error class for standardized error handling. It provides detailed error information, including a type, a isWardenError flag (for safe client exposure), and a context object.
 - **AbstractAuthDB**: Defines the interface for database operations related to authentication.
 - **AbstractAuthManager**: An abstract layer for core authentication logic (signup, login, logout).
 - **AbstractAuthStrategy**: Represents a specific authentication mechanism (e.g., customer authentication).

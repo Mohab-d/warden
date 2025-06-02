@@ -4,7 +4,7 @@ import IAppError from "../interface/IAppError";
 abstract class AbstractAppError<T> extends Error {
   public name: string;
   public message: string;
-  public isTrustedError: boolean;
+  public isWardenError: boolean;
   public type: ErrorType;
   public context?: T;
   private _createdAt: Date;
@@ -23,7 +23,7 @@ abstract class AbstractAppError<T> extends Error {
     super();
     this.name = name;
     this.message = message;
-    this.isTrustedError = isTrustedError;
+    this.isWardenError = isTrustedError;
     this.type = type;
     this.context = context;
     this._createdAt = new Date();
@@ -37,7 +37,7 @@ abstract class AbstractAppError<T> extends Error {
     return {
       name: this.name,
       message: this.message,
-      isTrustedError: this.isTrustedError,
+      isWardenError: this.isWardenError,
       type: this.type,
       context: this.context,
       createdAt: this._createdAt,

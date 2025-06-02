@@ -17,7 +17,7 @@ function errorHandler(
 ) {
   const responseBuilder = new APIResBuilder();
 
-  if (error.isTrustedError) {
+  if (error.isWardenError) {
     const handler = errorsRegistry.createHandlingStrategy(error);
 
     handler.handle(error);

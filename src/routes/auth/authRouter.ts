@@ -1,12 +1,18 @@
 import { Router } from "express";
-import signupRoute from "./branchedRoutes/signupRoute";
-import loginRoute from "./branchedRoutes/loginRoute";
 import refreshController from "./controllers/refreshController";
+import signupController from "./controllers/signupController";
+import loginController from "./controllers/loginController";
+import validateBody from "../../middleware/validateBody";
+import customerSignupSchema from "./schemas/joi/customerSignupSchema";
 
 const authRouter = Router();
 
-authRouter.use("/signup", signupRoute);
-authRouter.use("/login", loginRoute);
-authRouter.post("/refresh/:clientType", refreshController);
+authRouter.use(
+  "/signup/customer",
+  validateBody(customerSignupSchema.options({ abortEarly: false })),
+  signupController("customer"),
+);
+authRouter.use("/login/customer", loginController("customer"));
+authRouter.use("/refresh/customer", refreshController("customer"));
 
 export default authRouter;

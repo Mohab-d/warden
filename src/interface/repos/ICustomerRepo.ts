@@ -1,9 +1,8 @@
 import ICustomerData from "../ICustomerData";
+import IBaseRepo from "./IBaseRepo";
 
-interface ICustomerRepo {
-  findOneById(id: string): Promise<ICustomerData>;
+interface ICustomerRepo extends IBaseRepo {
   findOneByUsername(username: string): Promise<ICustomerData>;
-  saveOne(data: ICustomerData): Promise<ICustomerData>;
 }
 
 export default ICustomerRepo;

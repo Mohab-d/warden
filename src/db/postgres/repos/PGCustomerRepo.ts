@@ -144,6 +144,10 @@ class PGCustomerRepo implements ICustomerRepo {
     }
   }
 
+  updateOne(id: string, data: any): Promise<any> {
+    throw "Not implemented yet";
+  }
+
   private handleError(error: any, context: any): AppError<any> {
     switch (error.code) {
       default:

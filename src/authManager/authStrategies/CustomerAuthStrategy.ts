@@ -1,18 +1,25 @@
-import AbstractAuthStrategy from "../../abstracts/AbstractAuthStrategy";
 import { appConfigs } from "../../config/appConfigs";
 import AppError from "../../errorHandler/definedError/AppError";
 import ErrorType from "../../errorHandler/ErrorType";
 import IAuthData from "../../interface/IAuthData";
 import ICustomerData from "../../interface/ICustomerData";
 import ICustomerLoginData from "../../interface/ICustomerLoginData";
-import ICustomerRepo from "../../interface/repos/ICustomerRepo";
 import bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
+import ICustomerRepo from "../../interface/repos/ICustomerRepo";
+import IAuthStrategy from "../../interface/IAuthStrategy";
+import ITokenRepo from "../../interface/repos/ITokenRepo";
 
-class CustomerAuthStrategy extends AbstractAuthStrategy<
-  ICustomerData,
-  ICustomerRepo
-> {
+class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
+  private _customerRepo: ICustomerRepo;
+  private _tokenRepo: ITokenRepo;
+
+  constructor(customerRepo: ICustomerRepo, tokenRepo?: any) {
+    super();
+    this._customerRepo = customerRepo;
+    this._tokenRepo = tokenRepo;
+  }
+
   public async signup(
     clientData: ICustomerData,
   ): Promise<IAuthData<ICustomerData>> {
@@ -28,9 +35,13 @@ class CustomerAuthStrategy extends AbstractAuthStrategy<
 
       clientData.password = await bcrypt.hash(clientData.password, 10);
 
-      const savedData = await this._repo.saveOne(clientData);
+      const savedData = await this._customerRepo.saveOne(clientData);
 
-      return this.generateTokens({ id: savedData.id! });
+      const tokens = this.generateTokens({ id: savedData.id! });
+
+      this._tokenRepo?.saveOne(tokens.refreshToken);
+
+      return tokens;
     } catch (error) {
       throw error;
     }
@@ -40,7 +51,9 @@ class CustomerAuthStrategy extends AbstractAuthStrategy<
     loginData: ICustomerLoginData,
   ): Promise<IAuthData<ICustomerData>> {
     try {
-      const customer = await this._repo.findOneByUsername(loginData.username);
+      const customer = await this._customerRepo.findOneByUsername(
+        loginData.username,
+      );
 
       if (!loginData.username || !loginData.password) {
         throw this.getIncorrectCredentialsError();
@@ -74,7 +87,7 @@ class CustomerAuthStrategy extends AbstractAuthStrategy<
           { id: (validPayload as any).id },
           appConfigs.secretKey,
           {
-            expiresIn: "7d",
+            expiresIn: "1h",
           },
         ),
       };
@@ -83,13 +96,19 @@ class CustomerAuthStrategy extends AbstractAuthStrategy<
     }
   }
 
+  public async logout(id: string): Promise<void> {
+    try {
+      throw "Not implemented";
+    } catch (error) {}
+  }
+
   private generateTokens(payload: object): IAuthData<any> {
     return {
       accessToken: jwt.sign(payload, appConfigs.secretKey, {
-        expiresIn: "7d",
+        expiresIn: "1h",
       }),
       refreshToken: jwt.sign(payload, appConfigs.refreshKey, {
-        expiresIn: "30d",
+        expiresIn: "7d",
       }),
     };
   }
