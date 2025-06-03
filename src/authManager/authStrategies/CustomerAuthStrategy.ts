@@ -87,7 +87,7 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
           { id: (validPayload as any).id },
           appConfigs.secretKey,
           {
-            expiresIn: "1h",
+            expiresIn: appConfigs.accessTokenDuration,
           },
         ),
       };
@@ -105,10 +105,10 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
   private generateTokens(payload: object): IAuthData<any> {
     return {
       accessToken: jwt.sign(payload, appConfigs.secretKey, {
-        expiresIn: "1h",
+        expiresIn: appConfigs.accessTokenDuration,
       }),
       refreshToken: jwt.sign(payload, appConfigs.refreshKey, {
-        expiresIn: "7d",
+        expiresIn: appConfigs.refreshTokenDuration,
       }),
     };
   }

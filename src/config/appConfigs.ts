@@ -10,4 +10,6 @@ export const appConfigs = {
   secretKey: process.env.SECRET_KEY!,
   refreshKey: process.env.REFRESH_KEY!,
   db: DBEnum.POSTGRES,
+  accessTokenDuration: 3600,
+  refreshTokenDuration: 24 * 3600 * 30,
 };
