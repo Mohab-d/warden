@@ -102,6 +102,13 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
     } catch (error) {}
   }
 
+  public async revokeRefreshToken(refreshToken: string): Promise<void> {
+    try {
+    } catch (error) {
+      throw error;
+    }
+  }
+
   private generateTokens(payload: object): IAuthData<any> {
     return {
       accessToken: jwt.sign(payload, appConfigs.secretKey, {

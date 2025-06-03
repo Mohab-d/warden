@@ -5,11 +5,15 @@ class IAuthStrategy<T> {
     throw "Not impelemnted";
   }
 
-  public login(loginData: any): Promise<IAuthData<any>> {
+  public async login(loginData: any): Promise<IAuthData<any>> {
     throw "Not impelemnted";
   }
 
   public refresh(refreshToken: string): IAuthData<any> {
+    throw "Not implemented";
+  }
+
+  public async revokeRefreshToken(refreshToken: string): Promise<void> {
     throw "Not implemented";
   }
 }
