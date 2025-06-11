@@ -31,15 +31,9 @@ class JoiSchemaValidator implements ISchemaValidation {
       path: e.path.join("."),
     }));
 
-    return new WardenError<IInvalidSchemaContext>(
-      "Schema validation error",
-      "Request sent does not match defined schema",
-      true,
-      ErrorType.ERR_INVALID_SCHEMA,
-      {
-        details: joiDetailsAdapted,
-      },
-    );
+    return WardenError.invalidSchema({
+      details: joiDetailsAdapted,
+    });
   }
 }
 

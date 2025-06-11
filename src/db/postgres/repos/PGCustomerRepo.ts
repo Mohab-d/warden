@@ -23,15 +23,9 @@ class PGCustomerRepo implements ICustomerRepo {
       const customer = result.rows[0];
 
       if (!customer) {
-        throw new WardenError(
-          "RecordNotExist",
-          `User with username (${username}) does not exist`,
-          true,
-          ErrorType.ERR_NO_RECORD,
-          {
-            username: username,
-          },
-        );
+        throw WardenError.noRecord({
+          username: username,
+        });
       }
 
       return {
@@ -131,13 +125,11 @@ class PGCustomerRepo implements ICustomerRepo {
         duplicates.forEach(
           (duplicate) => (context[duplicate] = (data as any)[duplicate]),
         );
-        throw new WardenError(
-          "ValueExist",
-          `The following values are duplicated (${duplicates.join(", ")})`,
-          true,
-          ErrorType.ERR_VALUE_EXIST,
-          context,
-        );
+
+        // throw duplication error
+        const duplicationError = WardenError.duplicatedRecord(context);
+        duplicationError.message = `The following values are duplicated (${duplicates.join(", ")})`;
+        throw duplicationError;
       }
     } catch (error) {
       throw this.handleError(error, data);

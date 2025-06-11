@@ -59,7 +59,7 @@ const errorsRegistry = new ErrorHandlingStrategyRegistry()
     ErrorType.ERR_INVALID_SCHEMA,
     new InvalidSchemaHadnlingStrategy(),
   )
-  .registerStrategy(ErrorType.ERR_No_Data, new NoDataErrorHadnlingStrategy())
+  .registerStrategy(ErrorType.ERR_NO_Data, new NoDataErrorHadnlingStrategy())
   .registerStrategy(
     ErrorType.ERR_NO_RECORD,
     new NoRecordErrorHandlingStrategy(),

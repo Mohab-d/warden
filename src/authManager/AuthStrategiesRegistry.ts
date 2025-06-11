@@ -1,5 +1,4 @@
 import WardenError from "../errorHandler/definedError/WardenError";
-import ErrorType from "../errorHandler/ErrorType";
 import RepoFactory from "../factories/RepoFactory";
 import IAuthStrategy from "../interface/IAuthStrategy";
 import CustomerAuthStrategy from "./authStrategies/CustomerAuthStrategy";
@@ -16,15 +15,9 @@ class AuthStrategyRegistry {
     const strategy = this._strategies[name];
 
     if (!strategy) {
-      throw new WardenError(
-        "UnknownStrategy",
-        `You tried to access a ${name} strategy, but this strategy is not registerd`,
-        true,
-        ErrorType.ERR_INVALID_OPERATION,
-        {
-          strategyName: name,
-        },
-      );
+      throw WardenError.unknownOperation({
+        strategy: name,
+      });
     }
 
     return strategy;

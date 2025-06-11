@@ -25,12 +25,9 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
   ): Promise<IAuthData<ICustomerData>> {
     try {
       if (!clientData.password) {
-        throw new WardenError(
-          "MissingProperty",
-          "You did not provide a password",
-          true,
-          ErrorType.ERR_No_Data,
-        );
+        throw WardenError.missingProperty({
+          unprovidedProperties: ["password"],
+        });
       }
 
       clientData.password = await bcrypt.hash(clientData.password, 10);
@@ -97,12 +94,7 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
 
       const tokenData = await this._tokenRepo.findOne(refreshToken);
       if (!tokenData.active) {
-        throw new WardenError(
-          "InvalidToken",
-          "This token is invalid, you need to login again",
-          true,
-          ErrorType.ERR_INVALID_TOKEN,
-        );
+        throw WardenError.invalidToken();
       }
 
       return {
@@ -144,12 +136,7 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
       return payload as any;
     } catch (error) {
       if (error instanceof jwt.TokenExpiredError) {
-        throw new WardenError(
-          "InvalidToken",
-          "This token is invalid, you need to login again",
-          true,
-          ErrorType.ERR_INVALID_TOKEN,
-        );
+        throw WardenError.invalidToken();
       } else {
         throw error;
       }
@@ -169,12 +156,9 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
   }
 
   private getIncorrectCredentialsError(): WardenError<undefined> {
-    return new WardenError(
-      "IncorrectCredentials",
-      `Username or password incorrect`,
-      true,
-      ErrorType.ERR_No_Data,
-    );
+    return WardenError.incorrectCredentials({
+      incorrectCredentials: ["username", "password"],
+    });
   }
 }
 

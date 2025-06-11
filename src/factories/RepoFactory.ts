@@ -26,15 +26,13 @@ class RepoFactory {
   }
 
   private createUnknownDBErr(): WardenError<any> {
-    return new WardenError(
-      "UnknownDatabase",
-      "The data base specified in the configs is not implemented",
-      true,
-      ErrorType.ERR_UNKNOWN_DB,
-      {
-        configuredDB: appConfigs.db,
-      },
-    );
+    const unknownDBError = WardenError.unknownOperation({
+      unknownDB: appConfigs.db,
+    });
+    unknownDBError.message =
+      "The database specified in the configs is not implemented";
+    unknownDBError.type = ErrorType.ERR_UNKNOWN_DB;
+    return unknownDBError;
   }
 }
 

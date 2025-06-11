@@ -4,7 +4,8 @@ enum ErrorType {
   ERR_INVALID_OPERATION = "err_invalid_operation",
   ERR_IMPLEMENTATION = "err_implementation",
   ERR_UNKNOWN_DB = "err_unknown_db",
-  ERR_No_Data = "err_no_data",
+  ERR_UNKNOWN_OPERATION = "err_unknown_operatoin",
+  ERR_NO_Data = "err_no_data",
   ERR_NO_RECORD = "err_no_record",
   ERR_INVALID_TOKEN = "err_invalid_token",
 }

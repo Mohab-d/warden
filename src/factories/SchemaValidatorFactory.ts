@@ -11,13 +11,9 @@ class SchemaValidatorFactory {
       case "joi":
         return new JoiSchemaValidator();
       default:
-        throw new WardenError(
-          "NoSuchSchema",
-          "This schema does not exist",
-          true,
-          ErrorType.ERR_IMPLEMENTATION,
-          { schema: name },
-        );
+        throw WardenError.unknownOperation({
+          schema: name,
+        });
     }
   }
 }
