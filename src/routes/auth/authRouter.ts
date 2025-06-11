@@ -6,6 +6,7 @@ import validateBody from "../../middleware/validateBody";
 import customerSignupSchema from "./schemas/joi/customerSignupSchema";
 import customerLoginSchema from "./schemas/joi/customerLoginSchema";
 import Joi from "joi";
+import logoutController from "./controllers/logoutController";
 
 const authRouter = Router();
 
@@ -16,12 +17,17 @@ authRouter.use(
 );
 authRouter.use(
   "/login/customer",
-  validateBody(customerLoginSchema.options({ abortEarly: false })),
+  // validateBody(customerLoginSchema.options({ abortEarly: false })),
   loginController("customer"),
 );
 authRouter.use(
+  "/logout/customer",
+  validateBody(Joi.object({ accessToken: Joi.string() })),
+  logoutController("customer"),
+);
+authRouter.use(
   "/refresh/customer",
-  validateBody(Joi.object({ accessToken: Joi.string })),
+  validateBody(Joi.object({ refreshToken: Joi.string() })),
   refreshController("customer"),
 );
 

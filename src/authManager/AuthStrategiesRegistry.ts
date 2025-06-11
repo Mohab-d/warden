@@ -35,7 +35,10 @@ const repoFactory = new RepoFactory();
 
 const authStrategiesRegistry = new AuthStrategyRegistry().registerStrategy(
   "customer",
-  new CustomerAuthStrategy(repoFactory.createCustomerRepo()),
+  new CustomerAuthStrategy(
+    repoFactory.createCustomerRepo(),
+    repoFactory.createTokenRepo(),
+  ),
 );
 
 export default authStrategiesRegistry;

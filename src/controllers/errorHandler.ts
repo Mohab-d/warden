@@ -22,6 +22,8 @@ function errorHandler(
 
     handler.handle(error);
 
+    console.log("Warden error:", error.getFormat());
+
     const errorResponse = responseBuilder
       .setHttpCode(handler.httpCode)
       .setSuccess(false)

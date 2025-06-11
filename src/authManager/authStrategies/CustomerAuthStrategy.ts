@@ -37,9 +37,11 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
 
       const savedData = await this._customerRepo.saveOne(clientData);
 
-      const tokens = this.generateTokens({ id: savedData.id! });
-
-      this._tokenRepo?.saveOne(tokens.refreshToken);
+      const tokens = {
+        accessToken: this.generateAccessToken({ id: savedData.id }),
+        refreshToken: this.generateRefreshToken({ id: savedData.id }),
+      };
+      await this._tokenRepo?.saveOne(tokens.refreshToken, savedData.id);
 
       return tokens;
     } catch (error) {
@@ -68,7 +70,13 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
         throw this.getIncorrectCredentialsError();
       }
 
-      return this.generateTokens({ id: customer.id! });
+      const tokens = {
+        accessToken: this.generateAccessToken({ id: customer.id! }),
+        refreshToken: this.generateRefreshToken({ id: customer.id! }),
+      };
+      await this._tokenRepo?.saveOne(tokens.refreshToken, customer.id!);
+
+      return tokens;
     } catch (error) {
       if (error instanceof AppError && error.type === ErrorType.ERR_NO_RECORD) {
         throw this.getIncorrectCredentialsError();
@@ -77,47 +85,84 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
     }
   }
 
-  public refresh(refreshToken: string): IAuthData<any> {
+  public async refresh(refreshToken: string): Promise<IAuthData<any>> {
     try {
-      const validPayload = jwt.verify(refreshToken, appConfigs.refreshKey);
-      console.log(validPayload);
+      const validPayload = this.verifyTokenAndGetPayload(
+        refreshToken,
+        appConfigs.refreshKey,
+      );
+
+      const tokenData = await this._tokenRepo.findOne(refreshToken);
+      if (!tokenData.active) {
+        throw new AppError(
+          "InvalidToken",
+          "This token is invalid, you need to login again",
+          true,
+          ErrorType.ERR_INVALID_TOKEN,
+        );
+      }
 
       return {
-        accessToken: jwt.sign(
-          { id: (validPayload as any).id },
-          appConfigs.secretKey,
-          {
-            expiresIn: appConfigs.accessTokenDuration,
-          },
-        ),
+        accessToken: this.generateAccessToken((validPayload as any).id),
       };
     } catch (error) {
       throw error;
     }
   }
 
-  public async logout(id: string): Promise<void> {
+  public async logout(accessToken: string): Promise<void> {
     try {
-      throw "Not implemented";
-    } catch (error) {}
-  }
-
-  public async revokeRefreshToken(refreshToken: string): Promise<void> {
-    try {
+      const payload = this.verifyTokenAndGetPayload(
+        accessToken,
+        appConfigs.secretKey,
+      );
+      const tokenData = await this._tokenRepo.revokeByUserId(
+        (payload as any).id,
+      );
     } catch (error) {
       throw error;
     }
   }
 
-  private generateTokens(payload: object): IAuthData<any> {
-    return {
-      accessToken: jwt.sign(payload, appConfigs.secretKey, {
-        expiresIn: appConfigs.accessTokenDuration,
-      }),
-      refreshToken: jwt.sign(payload, appConfigs.refreshKey, {
-        expiresIn: appConfigs.refreshTokenDuration,
-      }),
-    };
+  public async revokeRefreshToken(refreshToken: string): Promise<void> {
+    try {
+      await this._tokenRepo.revokeByToken(refreshToken);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  private verifyTokenAndGetPayload(
+    token: string,
+    secretKey: string,
+  ): object | undefined {
+    try {
+      const payload = jwt.verify(token, secretKey);
+      return payload as any;
+    } catch (error) {
+      if (error instanceof jwt.TokenExpiredError) {
+        throw new AppError(
+          "InvalidToken",
+          "This token is invalid, you need to login again",
+          true,
+          ErrorType.ERR_INVALID_TOKEN,
+        );
+      } else {
+        throw error;
+      }
+    }
+  }
+
+  private generateAccessToken(payload: object): string {
+    return jwt.sign(payload, appConfigs.secretKey, {
+      expiresIn: appConfigs.accessTokenDuration,
+    });
+  }
+
+  private generateRefreshToken(payload: object): string {
+    return jwt.sign(payload, appConfigs.refreshKey, {
+      expiresIn: appConfigs.refreshTokenDuration,
+    });
   }
 
   private getIncorrectCredentialsError(): AppError<undefined> {

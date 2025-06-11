@@ -1,5 +1,10 @@
-import IBaseRepo from "./IBaseRepo";
+import ITokenData from "../ITokenData";
 
-interface ITokenRepo extends IBaseRepo {}
+interface ITokenRepo {
+  findOne(token: string): Promise<ITokenData>;
+  saveOne(token: string, userId: number): Promise<ITokenData>;
+  revokeByUserId(userId: number): Promise<void>;
+  revokeByToken(token: string): Promise<void>;
+}
 
 export default ITokenRepo;

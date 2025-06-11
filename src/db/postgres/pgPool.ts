@@ -1,4 +1,4 @@
-import { Pool } from "pg";
+import { Pool, PoolClient } from "pg";
 import pgConfigs from "./pgConfigs";
 
 const pgPool = new Pool(pgConfigs);

@@ -9,7 +9,11 @@ class IAuthStrategy<T> {
     throw "Not impelemnted";
   }
 
-  public refresh(refreshToken: string): IAuthData<any> {
+  public async logout(id: string): Promise<void> {
+    throw "Not implemented";
+  }
+
+  public async refresh(refreshToken: string): Promise<IAuthData<any>> {
     throw "Not implemented";
   }
 

@@ -1,8 +1,9 @@
+import ITokenData from "../../../interface/ITokenData";
 import ITokenRepo from "../../../interface/repos/ITokenRepo";
 import pgPool from "../pgPool";
 
 class PGTokenRepo implements ITokenRepo {
-  public async findOneById(token: string): Promise<String> {
+  public async findOne(token: string): Promise<ITokenData> {
     let db;
     try {
       db = await pgPool.connect();
@@ -11,6 +12,7 @@ class PGTokenRepo implements ITokenRepo {
         "SELECT * FROM refresh_token WHERE token = $1",
         [token],
       );
+      console.log("hello");
 
       return result.rows[0];
     } catch (error) {
@@ -20,14 +22,14 @@ class PGTokenRepo implements ITokenRepo {
     }
   }
 
-  public async saveOne(token: string): Promise<any> {
+  public async saveOne(token: string, userId: number): Promise<ITokenData> {
     let db;
     try {
       db = await pgPool.connect();
 
       const result = await db.query(
-        "INSERT INTO refresh_token VALUES $1 RETURNING token",
-        [token, false],
+        "INSERT INTO refresh_token (token, active, user_id) VALUES ($1, $2, $3) RETURNING *",
+        [token, true, userId],
       );
 
       return result.rows[0];
@@ -38,17 +40,31 @@ class PGTokenRepo implements ITokenRepo {
     }
   }
 
-  public async updateOne(token: string, revoked: boolean): Promise<any> {
+  public async revokeByUserId(userId: number): Promise<void> {
     let db;
     try {
       db = await pgPool.connect();
 
-      const result = await db.query(
-        "UPDATE refresh_token SET active = $1 WHERE token = $2",
-        [revoked, token],
+      await db.query(
+        "UPDATE refresh_token SET active = FALSE WHERE user_id = $1",
+        [userId],
       );
+    } catch (error) {
+      throw error;
+    } finally {
+      db?.release();
+    }
+  }
 
-      return result.rows[0];
+  public async revokeByToken(token: string): Promise<void> {
+    let db;
+    try {
+      db = await pgPool.connect();
+
+      await db.query(
+        "UPDATE refresh_token SET active = FALSE WHERE user_id = $1",
+        [token],
+      );
     } catch (error) {
       throw error;
     } finally {
@@ -56,3 +72,5 @@ class PGTokenRepo implements ITokenRepo {
     }
   }
 }
+
+export default PGTokenRepo;
