@@ -1,5 +1,5 @@
 import { PoolClient } from "pg";
-import AppError from "../../../errorHandler/definedError/AppError";
+import WardenError from "../../../errorHandler/definedError/WardenError";
 import ErrorType from "../../../errorHandler/ErrorType";
 import ICustomerData from "../../../interface/ICustomerData";
 import ICustomerRepo from "../../../interface/repos/ICustomerRepo";
@@ -23,7 +23,7 @@ class PGCustomerRepo implements ICustomerRepo {
       const customer = result.rows[0];
 
       if (!customer) {
-        throw new AppError(
+        throw new WardenError(
           "RecordNotExist",
           `User with username (${username}) does not exist`,
           true,
@@ -131,7 +131,7 @@ class PGCustomerRepo implements ICustomerRepo {
         duplicates.forEach(
           (duplicate) => (context[duplicate] = (data as any)[duplicate]),
         );
-        throw new AppError(
+        throw new WardenError(
           "ValueExist",
           `The following values are duplicated (${duplicates.join(", ")})`,
           true,
@@ -148,7 +148,7 @@ class PGCustomerRepo implements ICustomerRepo {
     throw "Not implemented yet";
   }
 
-  private handleError(error: any, context: any): AppError<any> {
+  private handleError(error: any, context: any): WardenError<any> {
     switch (error.code) {
       default:
         throw error;

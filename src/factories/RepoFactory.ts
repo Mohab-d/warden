@@ -1,7 +1,7 @@
 import { appConfigs, DBEnum } from "../config/appConfigs";
 import PGCustomerRepo from "../db/postgres/repos/PGCustomerRepo";
 import PGTokenRepo from "../db/postgres/repos/PGTokenRepo";
-import AppError from "../errorHandler/definedError/AppError";
+import WardenError from "../errorHandler/definedError/WardenError";
 import ErrorType from "../errorHandler/ErrorType";
 import ICustomerRepo from "../interface/repos/ICustomerRepo";
 import ITokenRepo from "../interface/repos/ITokenRepo";
@@ -25,8 +25,8 @@ class RepoFactory {
     }
   }
 
-  private createUnknownDBErr(): AppError<any> {
-    return new AppError(
+  private createUnknownDBErr(): WardenError<any> {
+    return new WardenError(
       "UnknownDatabase",
       "The data base specified in the configs is not implemented",
       true,

@@ -1,5 +1,5 @@
 import { appConfigs } from "../../config/appConfigs";
-import AppError from "../../errorHandler/definedError/AppError";
+import WardenError from "../../errorHandler/definedError/WardenError";
 import ErrorType from "../../errorHandler/ErrorType";
 import IAuthData from "../../interface/IAuthData";
 import ICustomerData from "../../interface/ICustomerData";
@@ -25,7 +25,7 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
   ): Promise<IAuthData<ICustomerData>> {
     try {
       if (!clientData.password) {
-        throw new AppError(
+        throw new WardenError(
           "MissingProperty",
           "You did not provide a password",
           true,
@@ -78,7 +78,10 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
 
       return tokens;
     } catch (error) {
-      if (error instanceof AppError && error.type === ErrorType.ERR_NO_RECORD) {
+      if (
+        error instanceof WardenError &&
+        error.type === ErrorType.ERR_NO_RECORD
+      ) {
         throw this.getIncorrectCredentialsError();
       }
       throw error;
@@ -94,7 +97,7 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
 
       const tokenData = await this._tokenRepo.findOne(refreshToken);
       if (!tokenData.active) {
-        throw new AppError(
+        throw new WardenError(
           "InvalidToken",
           "This token is invalid, you need to login again",
           true,
@@ -141,7 +144,7 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
       return payload as any;
     } catch (error) {
       if (error instanceof jwt.TokenExpiredError) {
-        throw new AppError(
+        throw new WardenError(
           "InvalidToken",
           "This token is invalid, you need to login again",
           true,
@@ -165,8 +168,8 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
     });
   }
 
-  private getIncorrectCredentialsError(): AppError<undefined> {
-    return new AppError(
+  private getIncorrectCredentialsError(): WardenError<undefined> {
+    return new WardenError(
       "IncorrectCredentials",
       `Username or password incorrect`,
       true,

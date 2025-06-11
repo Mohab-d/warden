@@ -2,7 +2,7 @@ import { Schema, ValidationError } from "joi";
 import ISchemaValidation from "../../interface/ISchemaValidation";
 import IInvalidSchemaContext from "../../errorHandler/contextTypes/IInvalidSchemaContext";
 import AbstractAppError from "../../abstracts/AbstractAppError";
-import AppError from "../../errorHandler/definedError/AppError";
+import WardenError from "../../errorHandler/definedError/WardenError";
 import ErrorType from "../../errorHandler/ErrorType";
 
 class JoiSchemaValidator implements ISchemaValidation {
@@ -31,7 +31,7 @@ class JoiSchemaValidator implements ISchemaValidation {
       path: e.path.join("."),
     }));
 
-    return new AppError<IInvalidSchemaContext>(
+    return new WardenError<IInvalidSchemaContext>(
       "Schema validation error",
       "Request sent does not match defined schema",
       true,

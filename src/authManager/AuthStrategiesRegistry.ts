@@ -1,4 +1,4 @@
-import AppError from "../errorHandler/definedError/AppError";
+import WardenError from "../errorHandler/definedError/WardenError";
 import ErrorType from "../errorHandler/ErrorType";
 import RepoFactory from "../factories/RepoFactory";
 import IAuthStrategy from "../interface/IAuthStrategy";
@@ -16,7 +16,7 @@ class AuthStrategyRegistry {
     const strategy = this._strategies[name];
 
     if (!strategy) {
-      throw new AppError(
+      throw new WardenError(
         "UnknownStrategy",
         `You tried to access a ${name} strategy, but this strategy is not registerd`,
         true,

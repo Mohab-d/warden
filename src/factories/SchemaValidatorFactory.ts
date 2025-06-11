@@ -1,4 +1,4 @@
-import AppError from "../errorHandler/definedError/AppError";
+import WardenError from "../errorHandler/definedError/WardenError";
 import ErrorType from "../errorHandler/ErrorType";
 import ISchemaValidation from "../interface/ISchemaValidation";
 import JoiSchemaValidator from "../schemaValidator/joi/JoiSchemaValidator";
@@ -11,7 +11,7 @@ class SchemaValidatorFactory {
       case "joi":
         return new JoiSchemaValidator();
       default:
-        throw new AppError(
+        throw new WardenError(
           "NoSuchSchema",
           "This schema does not exist",
           true,
