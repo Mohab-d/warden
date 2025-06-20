@@ -1,4 +1,4 @@
-![project logo](./public/images/wardenLogo.jpg)
+![project logo](./public/images/wardenLogo.png)
 
 # Warden
 
