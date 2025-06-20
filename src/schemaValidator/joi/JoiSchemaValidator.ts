@@ -3,7 +3,6 @@ import ISchemaValidation from "../../interface/ISchemaValidation";
 import IInvalidSchemaContext from "../../errorHandler/contextTypes/IInvalidSchemaContext";
 import AbstractAppError from "../../abstracts/AbstractAppError";
 import WardenError from "../../errorHandler/definedError/WardenError";
-import ErrorType from "../../errorHandler/ErrorType";
 
 class JoiSchemaValidator implements ISchemaValidation {
   public validate(

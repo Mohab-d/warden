@@ -2,7 +2,6 @@ import "dotenv/config";
 
 export enum DBEnum {
   POSTGRES = "postgres",
-  MONGO = "mongo",
 }
 
 export const appConfigs = {

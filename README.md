@@ -1,9 +1,5 @@
 ![project logo](./public/images/wardenLogo.jpg)
 
-# Important > [!NOTE]
-
-> This project isn't usable yet, it does not include tests, and it still works on a predefined experimental database.
-
 # Warden
 
 This project provides a robust and extensible framework for handling authentication, error management, and data persistence in a TypeScript application. It leverages abstract classes, factories, and registries to promote a modular and maintainable design.
@@ -13,11 +9,14 @@ This project provides a robust and extensible framework for handling authenticat
 The system is built around several key abstract classes and their concrete implementations:
 
 - **AbstractAppError**: A custom error class for standardized error handling. It provides detailed error information, including a type, a isWardenError flag (for safe client exposure), and a context object.
-- **AbstractAuthDB**: Defines the interface for database operations related to authentication.
-- **AbstractAuthManager**: An abstract layer for core authentication logic (signup, login, logout).
-- **AbstractAuthStrategy**: Represents a specific authentication mechanism (e.g., customer authentication).
-- **AbstractInputValidationComponent**: The base class for input validation.
-- **AbstractService**: Defines common service operations for data persistence.
+- **AuthStrategyRegistry**: A registry that stores factory functions that return a new instance
+  of a pre-defined authentication strategy.
+- **ErrorHandlingStrategyRegistry**: A registry that stores factory functions that return a new instance
+  of a pre-defined error handling strategy.-
+- **APIResBuilder**: A builder object used to construct a response to ensure a unified structure
+  for the app response.
+- **SchemaValidatorFactory**: An factory object that return an adapter object which adapt the error
+  response of 3rd party schema validation libraries (zod, joi) to the AbstractAppError.
 
 # Key Features
 

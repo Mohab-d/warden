@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import APIResBuilder from "../../../builders/APIResBuilder";
-import authStrategiesRegistry from "../../../authManager/AuthStrategiesRegistry";
+import authStrategiesRegistry from "../../../registries/AuthStrategiesRegistry";
 
 function signupController(
   clientType: string,

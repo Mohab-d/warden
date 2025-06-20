@@ -17,7 +17,7 @@ authRouter.use(
 );
 authRouter.use(
   "/login/customer",
-  // validateBody(customerLoginSchema.options({ abortEarly: false })),
+  validateBody(customerLoginSchema.options({ abortEarly: false })),
   loginController("customer"),
 );
 authRouter.use(

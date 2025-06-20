@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import authStrategiesRegistry from "../../../authManager/AuthStrategiesRegistry";
+import authStrategiesRegistry from "../../../registries/AuthStrategiesRegistry";
 import APIResBuilder from "../../../builders/APIResBuilder";
 
 function refreshController(

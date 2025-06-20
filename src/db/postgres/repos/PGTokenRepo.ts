@@ -12,7 +12,6 @@ class PGTokenRepo implements ITokenRepo {
         "SELECT * FROM refresh_token WHERE token = $1",
         [token],
       );
-      console.log("hello");
 
       return result.rows[0];
     } catch (error) {

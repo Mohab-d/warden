@@ -6,6 +6,6 @@ const pgConfigs = {
   database: process.env.PGDB,
   password: process.env.PGPASSWORD,
   port: parseInt(process.env.PGPORT as string),
-}
+};
 
-export default pgConfigs
+export default pgConfigs;
