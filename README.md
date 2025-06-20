@@ -40,13 +40,4 @@ The **SchemaValidatorFactory** creates schema validators, such as **JoiSchemaVal
 
 The **appConfigs** file centralizes essential application settings, including the server port, JWT secret and refresh keys, and the chosen database type.
 
-# Usage Example
-
-The **signupController** (found in /src/routes/auth/controllers/signupController.ts) illustrates how these components work together:
-
-- It determines the client type from the request parameters.
-- It retrieves the appropriate authentication strategy using authStrategiesRegistry.
-- It calls the signup method of the selected strategy.
-- Finally, it uses the APIResBuilder to construct a standardized API response.
-
 This modular structure makes it easy to extend the application with new authentication methods, database types, or validation schemas.
