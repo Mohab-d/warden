@@ -1,5 +1,4 @@
 import WardenError from "../errorHandler/definedError/WardenError";
-import ErrorType from "../errorHandler/ErrorType";
 import ISchemaValidation from "../interface/ISchemaValidation";
 import JoiSchemaValidator from "../schemaValidator/joi/JoiSchemaValidator";
 
