@@ -1,5 +1,5 @@
 import AbstractAppError from "../abstracts/AbstractAppError";
-import InvalidSchemaHadnlingStrategy from "../errorHandler/errorHandlingStrategies/InvalidSchemaHandlingStrategy";
+import InvalidSchemaErrorHandlingStrategy from "../errorHandler/errorHandlingStrategies/InvalidSchemaErrorHandlingStrategy";
 import NoDataErrorHadnlingStrategy from "../errorHandler/errorHandlingStrategies/NoDataErrorHandlingStrategy";
 import NoRecordErrorHandlingStrategy from "../errorHandler/errorHandlingStrategies/NoRecordErrorHandlingStrategy";
 import UknownErrorHandlingStrategy from "../errorHandler/errorHandlingStrategies/UknownErrorHandlingStrategy";
@@ -8,23 +8,23 @@ import ErrorType from "../errorHandler/ErrorType";
 import IErrorHandlingStrategy from "../interface/IErrorHandlingStrategy";
 
 class ErrorHandlingStrategyRegistry {
-  private errorHandlingStrategies: Record<
+  private errorHandlingStrategyFactories: Record<
     string,
     () => IErrorHandlingStrategy<any>
   > = {};
 
-  public registerStrategy(
+  public registerStrategyFactory(
     errorType: ErrorType,
-    strategy: () => IErrorHandlingStrategy<any>,
+    strategyFactory: () => IErrorHandlingStrategy<any>,
   ): ErrorHandlingStrategyRegistry {
-    this.errorHandlingStrategies[errorType] = strategy;
+    this.errorHandlingStrategyFactories[errorType] = strategyFactory;
     return this;
   }
 
-  public createHandlingStrategy(
+  public getStrategy(
     error: AbstractAppError<any>,
   ): IErrorHandlingStrategy<any> {
-    const strategyFactory = this.errorHandlingStrategies[error.type];
+    const strategyFactory = this.errorHandlingStrategyFactories[error.type];
 
     if (!strategyFactory) {
       return new UknownErrorHandlingStrategy();
@@ -35,19 +35,19 @@ class ErrorHandlingStrategyRegistry {
 }
 
 const errorsRegistry = new ErrorHandlingStrategyRegistry()
-  .registerStrategy(
+  .registerStrategyFactory(
     ErrorType.ERR_VALUE_EXIST,
     () => new ValueExistErrorStrategy(),
   )
-  .registerStrategy(
+  .registerStrategyFactory(
     ErrorType.ERR_INVALID_SCHEMA,
-    () => new InvalidSchemaHadnlingStrategy(),
+    () => new InvalidSchemaErrorHandlingStrategy(),
   )
-  .registerStrategy(
+  .registerStrategyFactory(
     ErrorType.ERR_NO_Data,
     () => new NoDataErrorHadnlingStrategy(),
   )
-  .registerStrategy(
+  .registerStrategyFactory(
     ErrorType.ERR_NO_RECORD,
     () => new NoRecordErrorHandlingStrategy(),
   );

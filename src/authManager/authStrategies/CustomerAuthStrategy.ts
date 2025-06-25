@@ -20,9 +20,7 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
     this._tokenRepo = tokenRepo;
   }
 
-  public async signup(
-    clientData: ICustomerData,
-  ): Promise<IAuthData<ICustomerData>> {
+  public async signup(clientData: ICustomerData): Promise<IAuthData> {
     try {
       if (!clientData.password) {
         throw WardenError.missingProperty({
@@ -46,9 +44,7 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
     }
   }
 
-  public async login(
-    loginData: ICustomerLoginData,
-  ): Promise<IAuthData<ICustomerData>> {
+  public async login(loginData: ICustomerLoginData): Promise<IAuthData> {
     try {
       const customer = await this._customerRepo.findOneByUsername(
         loginData.username,
@@ -85,7 +81,7 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
     }
   }
 
-  public async refresh(refreshToken: string): Promise<IAuthData<any>> {
+  public async refresh(refreshToken: string): Promise<IAuthData> {
     try {
       const validPayload = this.verifyTokenAndGetPayload(
         refreshToken,

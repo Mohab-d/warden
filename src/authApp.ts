@@ -13,6 +13,9 @@ authApp.use(morgan("dev"));
 
 // routes
 authApp.use("/auth", authRouter);
+authApp.use("/", (req, res, next) => {
+  res.send("Warden ready");
+});
 
 // error handling
 authApp.use(errorHandler);

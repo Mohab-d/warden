@@ -1,19 +1,19 @@
 import IAuthData from "./IAuthData";
 
 class IAuthStrategy<T> {
-  public async signup(clientData: T): Promise<IAuthData<T>> {
+  public async signup(clientData: T): Promise<IAuthData> {
     throw "Not impelemnted";
   }
 
-  public async login(loginData: any): Promise<IAuthData<any>> {
+  public async login(loginData: any): Promise<IAuthData> {
     throw "Not impelemnted";
   }
 
-  public async logout(id: string): Promise<void> {
+  public async logout(accessToken: string): Promise<void> {
     throw "Not implemented";
   }
 
-  public async refresh(refreshToken: string): Promise<IAuthData<any>> {
+  public async refresh(refreshToken: string): Promise<IAuthData> {
     throw "Not implemented";
   }
 

@@ -3,15 +3,10 @@ import ISchemaValidation from "../../interface/ISchemaValidation";
 import IInvalidSchemaContext from "../../errorHandler/contextTypes/IInvalidSchemaContext";
 import AbstractAppError from "../../abstracts/AbstractAppError";
 import WardenError from "../../errorHandler/definedError/WardenError";
+import ISchemaValidationResult from "../../interface/ISchemaValidationResult";
 
 class JoiSchemaValidator implements ISchemaValidation {
-  public validate(
-    schema: Schema,
-    data: object,
-  ): {
-    value: any;
-    error: AbstractAppError<IInvalidSchemaContext> | undefined;
-  } {
+  public validate(schema: Schema, data: object): ISchemaValidationResult {
     const { value, error } = schema.validate(data);
 
     return {

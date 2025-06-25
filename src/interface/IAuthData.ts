@@ -1,4 +1,4 @@
-interface IAuthData<T> {
+interface IAuthData {
   accessToken: string;
   refreshToken?: string;
 }

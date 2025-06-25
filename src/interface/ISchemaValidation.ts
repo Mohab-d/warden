@@ -1,11 +1,7 @@
-import AbstractAppError from "../abstracts/AbstractAppError";
-import IInvalidSchemaContext from "../errorHandler/contextTypes/IInvalidSchemaContext";
+import ISchemaValidationResult from "./ISchemaValidationResult";
 
 interface ISchemaValidation {
-  validate(
-    schema: any,
-    data: object,
-  ): { value: any; error: AbstractAppError<IInvalidSchemaContext> | undefined };
+  validate(schema: any, data: object): ISchemaValidationResult;
 }
 
 export default ISchemaValidation;

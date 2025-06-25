@@ -13,7 +13,7 @@ function errorHandler(
   const responseBuilder = new APIResBuilder();
 
   if (error.isWardenError) {
-    const handler = errorsRegistry.createHandlingStrategy(error);
+    const handler = errorsRegistry.getStrategy(error);
 
     handler.handle(error);
 

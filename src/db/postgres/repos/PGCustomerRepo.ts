@@ -1,12 +1,11 @@
 import { PoolClient } from "pg";
 import WardenError from "../../../errorHandler/definedError/WardenError";
-import ErrorType from "../../../errorHandler/ErrorType";
 import ICustomerData from "../../../interface/ICustomerData";
 import ICustomerRepo from "../../../interface/repos/ICustomerRepo";
 import pgPool from "../pgPool";
 
 class PGCustomerRepo implements ICustomerRepo {
-  public async findOneById(id: string): Promise<ICustomerData> {
+  public async findOneById(id: number): Promise<ICustomerData> {
     throw "Not implemented";
   }
 
@@ -136,7 +135,7 @@ class PGCustomerRepo implements ICustomerRepo {
     }
   }
 
-  updateOne(id: string, data: any): Promise<any> {
+  updateOne(id: number, data: any): Promise<any> {
     throw "Not implemented yet";
   }
 
