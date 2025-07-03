@@ -1,6 +1,7 @@
 interface IAuthData {
-  accessToken: string;
+  accessToken?: string;
   refreshToken?: string;
+  apiKey?: string;
 }
 
 export default IAuthData;

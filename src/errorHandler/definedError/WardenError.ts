@@ -45,6 +45,16 @@ class WardenError<T> extends AbstractAppError<T> {
     );
   }
 
+  public static invalidKey(context?: any): WardenError<any> {
+    return new WardenError(
+      "InvalidKey",
+      "This key is invalid, you need to generate a new valid one",
+      true,
+      ErrorType.ERR_INVALID_KEY,
+      context,
+    );
+  }
+
   public static incorrectCredentials(context?: any): WardenError<any> {
     return new WardenError(
       "IncorrectCredentials",

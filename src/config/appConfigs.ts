@@ -11,4 +11,7 @@ export const appConfigs = {
   db: DBEnum.POSTGRES,
   accessTokenDuration: 3600,
   refreshTokenDuration: 24 * 3600 * 30,
+  thirdPartyAppKey: process.env.THIRD_PARTY_APP_KEY!,
+  apiKeySaltRounds: 10,
+  passwordSaltRounds: 10,
 };

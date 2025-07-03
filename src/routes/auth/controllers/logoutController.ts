@@ -9,7 +9,7 @@ function logoutController(
     try {
       const authStrategy = authStrategiesRegistry.getStrategy(clientType);
 
-      await authStrategy.logout(req.body.accessToken);
+      await authStrategy.logout(req.body);
 
       const response = new APIResBuilder()
         .setHttpCode(200)

@@ -9,7 +9,7 @@ class IAuthStrategy<T> {
     throw "Not impelemnted";
   }
 
-  public async logout(accessToken: string): Promise<void> {
+  public async logout(logoutData: IAuthData): Promise<void> {
     throw "Not implemented";
   }
 

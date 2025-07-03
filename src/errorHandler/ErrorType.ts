@@ -5,6 +5,7 @@ enum ErrorType {
   ERR_NO_Data = "err_no_data",
   ERR_NO_RECORD = "err_no_record",
   ERR_INVALID_TOKEN = "err_invalid_token",
+  ERR_INVALID_KEY = "err_invalid_key",
 
   // internal errors
   ERR_INVALID_OPERATION = "err_invalid_operation",

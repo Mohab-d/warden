@@ -21,27 +21,26 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
   }
 
   public async signup(clientData: ICustomerData): Promise<IAuthData> {
-    try {
-      if (!clientData.password) {
-        throw WardenError.missingProperty({
-          unprovidedProperties: ["password"],
-        });
-      }
-
-      clientData.password = await bcrypt.hash(clientData.password, 10);
-
-      const savedData = await this._customerRepo.saveOne(clientData);
-
-      const tokens = {
-        accessToken: this.generateAccessToken({ id: savedData.id }),
-        refreshToken: this.generateRefreshToken({ id: savedData.id }),
-      };
-      await this._tokenRepo?.saveOne(tokens.refreshToken, savedData.id);
-
-      return tokens;
-    } catch (error) {
-      throw error;
+    if (!clientData.password) {
+      throw WardenError.missingProperty({
+        unprovidedProperties: ["password"],
+      });
     }
+
+    clientData.password = await bcrypt.hash(
+      clientData.password,
+      appConfigs.passwordSaltRounds,
+    );
+
+    const savedData = await this._customerRepo.saveOne(clientData);
+
+    const tokens = {
+      accessToken: this.generateAccessToken({ id: savedData.id }),
+      refreshToken: this.generateRefreshToken({ id: savedData.id }),
+    };
+    await this._tokenRepo?.saveOne(tokens.refreshToken, savedData.id);
+
+    return tokens;
   }
 
   public async login(loginData: ICustomerLoginData): Promise<IAuthData> {
@@ -101,10 +100,16 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
     }
   }
 
-  public async logout(accessToken: string): Promise<void> {
+  public async logout(logoutData: IAuthData): Promise<void> {
     try {
+      if (!logoutData.accessToken) {
+        throw WardenError.missingProperty({
+          missingProperties: ["accessToken"],
+        });
+      }
+
       const payload = this.verifyTokenAndGetPayload(
-        accessToken,
+        logoutData.accessToken,
         appConfigs.secretKey,
       );
       const tokenData = await this._tokenRepo.revokeByUserId(

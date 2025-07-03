@@ -1,6 +1,7 @@
 import WardenError from "../errorHandler/definedError/WardenError";
 import IAuthStrategy from "../interface/IAuthStrategy";
 import getCustomerAuthStrategy from "./authStrategyFactories/getCustomerAuthStrategy";
+import getThirdPartyAppAuthStrategy from "./authStrategyFactories/getThirdPartyAppAuthStrategy";
 
 class AuthStrategyRegistry {
   private _strategyFactories: Record<string, () => IAuthStrategy<any>> = {};
@@ -26,10 +27,8 @@ class AuthStrategyRegistry {
   }
 }
 
-const authStrategiesRegistry =
-  new AuthStrategyRegistry().registerStrategyFactory(
-    "customer",
-    getCustomerAuthStrategy,
-  );
+const authStrategiesRegistry = new AuthStrategyRegistry()
+  .registerStrategyFactory("customer", getCustomerAuthStrategy)
+  .registerStrategyFactory("third-party-app", getThirdPartyAppAuthStrategy);
 
 export default authStrategiesRegistry;
