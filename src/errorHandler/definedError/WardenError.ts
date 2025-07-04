@@ -86,6 +86,16 @@ class WardenError<T> extends AbstractAppError<T> {
       context,
     );
   }
+
+  public static overflowError(context?: any): WardenError<any> {
+    return new WardenError(
+      "OverflowError",
+      "You provided some data that caused a limit overflow",
+      true,
+      ErrorType.ERR_OVERFLOW,
+      context,
+    );
+  }
 }
 
 export default WardenError;

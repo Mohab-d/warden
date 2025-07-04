@@ -18,6 +18,7 @@ function errorHandler(
     handler.handle(error);
 
     console.log("Warden error:", error.getFormat());
+    console.log("Call stack:", error.stack);
 
     const errorResponse = responseBuilder
       .setHttpCode(handler.httpCode)

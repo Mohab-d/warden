@@ -4,20 +4,26 @@ import ErrorType from "../../errorHandler/ErrorType";
 import IAuthData from "../../interface/IAuthData";
 import ICustomerData from "../../interface/ICustomerData";
 import ICustomerLoginData from "../../interface/ICustomerLoginData";
-import bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
 import ICustomerRepo from "../../interface/repos/ICustomerRepo";
 import IAuthStrategy from "../../interface/IAuthStrategy";
 import ITokenRepo from "../../interface/repos/ITokenRepo";
+import IHashStrategy from "../../interface/IHashStrategy";
 
 class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
   private _customerRepo: ICustomerRepo;
   private _tokenRepo: ITokenRepo;
+  private _hashStrategy: IHashStrategy;
 
-  constructor(customerRepo: ICustomerRepo, tokenRepo?: any) {
+  constructor(
+    customerRepo: ICustomerRepo,
+    tokenRepo: ITokenRepo,
+    hashStrategy: IHashStrategy,
+  ) {
     super();
     this._customerRepo = customerRepo;
     this._tokenRepo = tokenRepo;
+    this._hashStrategy = hashStrategy;
   }
 
   public async signup(clientData: ICustomerData): Promise<IAuthData> {
@@ -27,10 +33,7 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
       });
     }
 
-    clientData.password = await bcrypt.hash(
-      clientData.password,
-      appConfigs.passwordSaltRounds,
-    );
+    clientData.password = await this._hashStrategy.hash(clientData.password);
 
     const savedData = await this._customerRepo.saveOne(clientData);
 
@@ -38,22 +41,24 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
       accessToken: this.generateAccessToken({ id: savedData.id }),
       refreshToken: this.generateRefreshToken({ id: savedData.id }),
     };
-    await this._tokenRepo?.saveOne(tokens.refreshToken, savedData.id);
+    await this._tokenRepo.saveOne(tokens.refreshToken, savedData.id);
 
     return tokens;
   }
 
   public async login(loginData: ICustomerLoginData): Promise<IAuthData> {
     try {
+      if (!loginData.username || !loginData.password) {
+        throw WardenError.missingProperty({
+          missingProperties: ["username", "password"],
+        });
+      }
+
       const customer = await this._customerRepo.findOneByUsername(
         loginData.username,
       );
 
-      if (!loginData.username || !loginData.password) {
-        throw this.getIncorrectCredentialsError();
-      }
-
-      const isValidPassword = await bcrypt.compare(
+      const isValidPassword = await this._hashStrategy.verify(
         loginData.password,
         customer.password!,
       );
@@ -66,7 +71,7 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
         accessToken: this.generateAccessToken({ id: customer.id! }),
         refreshToken: this.generateRefreshToken({ id: customer.id! }),
       };
-      await this._tokenRepo?.saveOne(tokens.refreshToken, customer.id!);
+      await this._tokenRepo.saveOne(tokens.refreshToken, customer.id!);
 
       return tokens;
     } catch (error) {
@@ -81,23 +86,19 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
   }
 
   public async refresh(refreshToken: string): Promise<IAuthData> {
-    try {
-      const validPayload = this.verifyTokenAndGetPayload(
-        refreshToken,
-        appConfigs.refreshKey,
-      );
+    const validPayload = this.verifyTokenAndGetPayload(
+      refreshToken,
+      appConfigs.refreshKey,
+    );
 
-      const tokenData = await this._tokenRepo.findOne(refreshToken);
-      if (!tokenData.active) {
-        throw WardenError.invalidToken();
-      }
-
-      return {
-        accessToken: this.generateAccessToken((validPayload as any).id),
-      };
-    } catch (error) {
-      throw error;
+    const tokenData = await this._tokenRepo.findOne(refreshToken);
+    if (!tokenData.active) {
+      throw WardenError.invalidToken();
     }
+
+    return {
+      accessToken: this.generateAccessToken({ id: (validPayload as any).id }),
+    };
   }
 
   public async logout(logoutData: IAuthData): Promise<void> {
@@ -157,9 +158,13 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
   }
 
   private getIncorrectCredentialsError(): WardenError<undefined> {
-    return WardenError.incorrectCredentials({
+    const error = WardenError.incorrectCredentials({
       incorrectCredentials: ["username", "password"],
     });
+
+    error.message = "Username or password incorrect";
+
+    return error;
   }
 }
 

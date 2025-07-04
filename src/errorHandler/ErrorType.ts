@@ -12,6 +12,7 @@ enum ErrorType {
   ERR_IMPLEMENTATION = "err_implementation",
   ERR_UNKNOWN_DB = "err_unknown_db",
   ERR_UNKNOWN_OPERATION = "err_unknown_operation",
+  ERR_OVERFLOW = "err_overflow",
 }
 
 export default ErrorType;
