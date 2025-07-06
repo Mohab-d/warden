@@ -18,7 +18,7 @@ class WardenError<T> extends AbstractAppError<T> {
   public static unknownOperation(context?: any): WardenError<any> {
     return new WardenError(
       "unknownOperation",
-      `You tried to access an unknown operation`,
+      `You tried to perform an unknown operation`,
       true,
       ErrorType.ERR_UNKNOWN_OPERATION,
       context,

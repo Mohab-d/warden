@@ -5,11 +5,10 @@ import IAuthStrategy from "../../interface/IAuthStrategy";
 
 function getCustomerAuthStrategy(): IAuthStrategy<any> {
   const repoFactory = new RepoFactory();
-  const hashFactory = new HashAlgorithmFactory();
   return new CustomerAuthStrategy(
     repoFactory.createCustomerRepo(),
     repoFactory.createTokenRepo(),
-    hashFactory.getHashAlgorithm("argon_2"),
+    new HashAlgorithmFactory(),
   );
 }
 

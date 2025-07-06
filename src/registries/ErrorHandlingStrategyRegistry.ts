@@ -6,12 +6,25 @@ import UknownErrorHandlingStrategy from "../errorHandler/errorHandlingStrategies
 import ValueExistErrorStrategy from "../errorHandler/errorHandlingStrategies/ValueExistErrorStrategy";
 import ErrorType from "../errorHandler/ErrorType";
 import IErrorHandlingStrategy from "../interface/IErrorHandlingStrategy";
+import IErrorHandlingStrategyRegistry from "../interface/IErrorHandlingStrategyRegistry";
 
-class ErrorHandlingStrategyRegistry {
+class ErrorHandlingStrategyRegistry implements IErrorHandlingStrategyRegistry {
+  private static _instance: IErrorHandlingStrategyRegistry;
   private errorHandlingStrategyFactories: Record<
     string,
     () => IErrorHandlingStrategy<any>
   > = {};
+
+  private constructor() {}
+
+  public static get instance(): IErrorHandlingStrategyRegistry {
+    if (!ErrorHandlingStrategyRegistry._instance) {
+      ErrorHandlingStrategyRegistry._instance =
+        new ErrorHandlingStrategyRegistry();
+    }
+
+    return ErrorHandlingStrategyRegistry._instance;
+  }
 
   public registerStrategyFactory(
     errorType: ErrorType,
@@ -34,7 +47,7 @@ class ErrorHandlingStrategyRegistry {
   }
 }
 
-const errorsRegistry = new ErrorHandlingStrategyRegistry()
+const errorsRegistry = ErrorHandlingStrategyRegistry.instance
   .registerStrategyFactory(
     ErrorType.ERR_VALUE_EXIST,
     () => new ValueExistErrorStrategy(),

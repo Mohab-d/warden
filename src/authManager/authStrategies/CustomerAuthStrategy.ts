@@ -8,32 +8,34 @@ import * as jwt from "jsonwebtoken";
 import ICustomerRepo from "../../interface/repos/ICustomerRepo";
 import IAuthStrategy from "../../interface/IAuthStrategy";
 import ITokenRepo from "../../interface/repos/ITokenRepo";
-import IHashStrategy from "../../interface/IHashStrategy";
+import { IHashFactory } from "../../interface/IHashFactory";
 
 class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
   private _customerRepo: ICustomerRepo;
   private _tokenRepo: ITokenRepo;
-  private _hashStrategy: IHashStrategy;
+  private _hashFactory: IHashFactory;
 
   constructor(
     customerRepo: ICustomerRepo,
     tokenRepo: ITokenRepo,
-    hashStrategy: IHashStrategy,
+    hashFactory: IHashFactory,
   ) {
     super();
     this._customerRepo = customerRepo;
     this._tokenRepo = tokenRepo;
-    this._hashStrategy = hashStrategy;
+    this._hashFactory = hashFactory;
   }
 
   public async signup(clientData: ICustomerData): Promise<IAuthData> {
     if (!clientData.password) {
       throw WardenError.missingProperty({
-        unprovidedProperties: ["password"],
+        missingProperties: ["password"],
       });
     }
 
-    clientData.password = await this._hashStrategy.hash(clientData.password);
+    const hashStrategy = this._hashFactory.getHashAlgorithm();
+
+    clientData.password = await hashStrategy.hash(clientData.password);
 
     const savedData = await this._customerRepo.saveOne(clientData);
 
@@ -58,7 +60,11 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
         loginData.username,
       );
 
-      const isValidPassword = await this._hashStrategy.verify(
+      const hashStrategy = this._hashFactory.getHashAlgorithmFromHash(
+        customer.password!,
+      );
+
+      const isValidPassword = await hashStrategy.verify(
         loginData.password,
         customer.password!,
       );

@@ -1,12 +1,13 @@
+import WardenError from "../errorHandler/definedError/WardenError";
 import ArgonHashingStrategy from "../hasher/hashStrategies/argon/ArgonHashingStrategy";
 import BcryptHashStrategy from "../hasher/hashStrategies/bcrypt/BcryptHashStrategy";
+import { HashAlgorithmName, IHashFactory } from "../interface/IHashFactory";
+import IHashStrategy from "../interface/IHashStrategy";
 
-type HashAlgorithmName = "bcrypt_2a" | "argon_2";
+class HashAlgorithmFactory implements IHashFactory {
+  private _preferredAlgorithm: HashAlgorithmName = "argon_2";
 
-class HashAlgorithmFactory {
-  private _preferredAlgorithm: HashAlgorithmName = "bcrypt_2a";
-
-  public getHashAlgorithm(name?: HashAlgorithmName) {
+  public getHashAlgorithm(name?: HashAlgorithmName): IHashStrategy {
     if (!name) name = this._preferredAlgorithm;
 
     switch (name) {
@@ -15,6 +16,33 @@ class HashAlgorithmFactory {
       case "argon_2":
         return new ArgonHashingStrategy();
     }
+  }
+
+  public getHashAlgorithmFromHash(hash: string): IHashStrategy {
+    const algorithmData = this.parseAlgorithmData(hash);
+
+    console.log(algorithmData);
+
+    switch (algorithmData.name) {
+      case "2b":
+        return new BcryptHashStrategy();
+      case "argon2id":
+        return new ArgonHashingStrategy();
+      default:
+        throw WardenError.unknownOperation({
+          requestedStrategy: algorithmData.name,
+          message: "This hash uses an unkown hashing algorithm",
+        });
+    }
+  }
+
+  private parseAlgorithmData(hash: string): { name: string; version: string } {
+    const parts = hash.split("$");
+
+    return {
+      name: parts[1],
+      version: parts[2],
+    };
   }
 }
 
