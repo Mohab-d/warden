@@ -7,7 +7,7 @@ class BcryptParser extends AbstractHashAlgorithmDataParser {
 
     const name = parts[1] ? parts[1] : "";
 
-    if (name === "2a") {
+    if (name === "2b") {
       return {
         name: "bcrypt",
         version: parts[2],
