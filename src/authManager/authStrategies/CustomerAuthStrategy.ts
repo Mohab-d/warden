@@ -119,6 +119,7 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
         logoutData.accessToken,
         appConfigs.secretKey,
       );
+
       const tokenData = await this._tokenRepo.revokeByUserId(
         (payload as any).id,
       );

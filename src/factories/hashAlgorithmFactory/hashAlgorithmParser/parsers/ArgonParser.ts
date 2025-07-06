@@ -7,10 +7,10 @@ class ArgonParser extends AbstractHashAlgorithmDataParser {
 
     const name = parts[1] ? parts[1] : "";
 
-    if (name.includes("argon")) {
+    if (name === "argon2id" || name === "argon2i" || name === "argon2d") {
       return {
         name: "argon_2",
-        version: parts[2],
+        version: String(parseInt(parts[2])),
       };
     }
 

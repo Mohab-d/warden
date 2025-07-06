@@ -5,12 +5,12 @@ class BcryptParser extends AbstractHashAlgorithmDataParser {
   public parseAlgorithmData(hash: string): IHashAlgorithmData {
     const parts = hash.split("$");
 
-    const name = parts[1] ? parts[1] : "";
+    const version = parts[1] ? parts[1] : "";
 
-    if (name === "2b") {
+    if (version === "2b") {
       return {
         name: "bcrypt",
-        version: parts[2],
+        version: version,
       };
     }
 
