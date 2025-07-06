@@ -1,8 +1,8 @@
-import WardenError from "../errorHandler/definedError/WardenError";
-import ArgonHashingStrategy from "../hasher/hashStrategies/argon/ArgonHashingStrategy";
-import BcryptHashStrategy from "../hasher/hashStrategies/bcrypt/BcryptHashStrategy";
-import { HashAlgorithmName, IHashFactory } from "../interface/IHashFactory";
-import IHashStrategy from "../interface/IHashStrategy";
+import WardenError from "../../errorHandler/definedError/WardenError";
+import ArgonHashingStrategy from "../../hasher/hashStrategies/argon/ArgonHashingStrategy";
+import BcryptHashStrategy from "../../hasher/hashStrategies/bcrypt/BcryptHashStrategy";
+import { HashAlgorithmName, IHashFactory } from "../../interface/IHashFactory";
+import IHashStrategy from "../../interface/IHashStrategy";
 
 class HashAlgorithmFactory implements IHashFactory {
   private _preferredAlgorithm: HashAlgorithmName = "argon_2";
@@ -11,7 +11,7 @@ class HashAlgorithmFactory implements IHashFactory {
     if (!name) name = this._preferredAlgorithm;
 
     switch (name) {
-      case "bcrypt_2a":
+      case "bcrypt":
         return new BcryptHashStrategy();
       case "argon_2":
         return new ArgonHashingStrategy();

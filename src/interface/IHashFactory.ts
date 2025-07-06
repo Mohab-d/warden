@@ -1,6 +1,6 @@
 import IHashStrategy from "./IHashStrategy";
 
-type HashAlgorithmName = "bcrypt_2a" | "argon_2";
+type HashAlgorithmName = "bcrypt" | "argon_2";
 
 interface IHashFactory {
   getHashAlgorithm(name?: HashAlgorithmName): IHashStrategy;

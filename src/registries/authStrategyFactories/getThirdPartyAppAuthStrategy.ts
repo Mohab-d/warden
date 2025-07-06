@@ -1,5 +1,5 @@
 import ThirdPartyAppAuthStrategy from "../../authManager/authStrategies/ThirdPartyAppAuthStrategy";
-import HashAlgorithmFactory from "../../factories/HashAlgorithmFactory";
+import HashAlgorithmFactory from "../../factories/hashAlgorithmFactory/HashAlgorithmFactory";
 import RepoFactory from "../../factories/RepoFactory";
 
 function getThirdPartyAppAuthStrategy() {

@@ -1,5 +1,5 @@
 import CustomerAuthStrategy from "../../authManager/authStrategies/CustomerAuthStrategy";
-import HashAlgorithmFactory from "../../factories/HashAlgorithmFactory";
+import HashAlgorithmFactory from "../../factories/hashAlgorithmFactory/HashAlgorithmFactory";
 import RepoFactory from "../../factories/RepoFactory";
 import IAuthStrategy from "../../interface/IAuthStrategy";
 
