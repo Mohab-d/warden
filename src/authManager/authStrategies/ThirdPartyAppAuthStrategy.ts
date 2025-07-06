@@ -5,21 +5,21 @@ import IThirdPartyAppRepo from "../../interface/repos/IThirdPartyAppRepo";
 import { randomBytes } from "crypto";
 import IAPIKeyRepo from "../../interface/repos/IAPIKeyRepo";
 import WardenError from "../../errorHandler/definedError/WardenError";
-import IHashStrategy from "../../interface/IHashStrategy";
+import { IHashFactory } from "../../interface/IHashFactory";
 
 class ThirdPartyAppAuthStrategy implements IAuthStrategy<IThirdPartyAppData> {
   private _appRepo: IThirdPartyAppRepo;
   private _APIKeyRepo: IAPIKeyRepo;
-  private _hashStrategy: IHashStrategy;
+  private _hashFactory: IHashFactory;
 
   constructor(
     appRepo: IThirdPartyAppRepo,
     tokenRepo: IAPIKeyRepo,
-    hashStrategy: IHashStrategy,
+    hashFactory: IHashFactory,
   ) {
     this._appRepo = appRepo;
     this._APIKeyRepo = tokenRepo;
-    this._hashStrategy = hashStrategy;
+    this._hashFactory = hashFactory;
   }
 
   public async signup(clientData: IThirdPartyAppData): Promise<IAuthData> {
@@ -58,7 +58,10 @@ class ThirdPartyAppAuthStrategy implements IAuthStrategy<IThirdPartyAppData> {
 
       const storedHash = await this._APIKeyRepo.findOneByAppId(id);
 
-      const isValidKey = await this._hashStrategy.verify(apiKey, storedHash);
+      const hashStrategy =
+        this._hashFactory.getHashAlgorithmFromHash(storedHash);
+
+      const isValidKey = await hashStrategy.verify(apiKey, storedHash);
 
       if (!isValidKey) {
         throw WardenError.invalidKey();
@@ -80,7 +83,7 @@ class ThirdPartyAppAuthStrategy implements IAuthStrategy<IThirdPartyAppData> {
 
   private async hashKey(key: string): Promise<string> {
     try {
-      return await this._hashStrategy.hash(key);
+      return await this._hashFactory.getHashAlgorithm().hash(key);
     } catch (error) {
       throw error;
     }
