@@ -87,7 +87,7 @@ class WardenError<T> extends AbstractAppError<T> {
   public static duplicatedRecord(context?: any): WardenError<any> {
     return new WardenError(
       "ValueExist",
-      `You provided some data that already exist in the database and can not be duplicates`,
+      `You provided some data that already exist in the database and can not have duplicates`,
       true,
       ErrorType.ERR_VALUE_EXIST,
       context,
