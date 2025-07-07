@@ -10,7 +10,7 @@ class PGThirdPartyAppRepo implements IThirdPartyAppRepo {
       db = await pgPool.connect();
 
       const existingApp = await db.query(
-        `SELECT COUNT(*) FROM third_party_app WHERE name = $1`,
+        `SELECT * FROM third_party_app WHERE name = $1`,
         [data.name],
       );
 
