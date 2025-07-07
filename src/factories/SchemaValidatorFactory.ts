@@ -11,7 +11,7 @@ class SchemaValidatorFactory {
         return new JoiSchemaValidator();
       default:
         throw WardenError.unknownOperation({
-          schema: name,
+          name: name,
         });
     }
   }

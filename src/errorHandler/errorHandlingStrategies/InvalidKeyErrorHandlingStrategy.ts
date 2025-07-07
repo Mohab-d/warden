@@ -4,25 +4,19 @@ import IErrorHandlingStrategy from "../../interface/IErrorHandlingStrategy";
 import ErrorHandlingStrategyRegistry from "../../registries/ErrorHandlingStrategyRegistry";
 import ErrorType from "../ErrorType";
 
-type NoDataContext = Record<string, any>;
-
-class NoDataErrorHadnlingStrategy
-  implements IErrorHandlingStrategy<NoDataContext>
-{
+class InvalidKeyErrorHandlingStrategy implements IErrorHandlingStrategy<any> {
   httpCode: number = 400;
 
-  handle(error: AbstractAppError<NoDataContext>): void {}
+  handle(error: AbstractAppError<any>): void {}
 
-  getFormattedError(
-    error: AbstractAppError<NoDataContext>,
-  ): IAppError<NoDataContext> {
+  getFormattedError(error: AbstractAppError<any>): IAppError<any> {
     return error.getFormat();
   }
 }
 
 ErrorHandlingStrategyRegistry.instance.registerStrategyFactory(
-  ErrorType.ERR_NO_Data,
-  () => new NoDataErrorHadnlingStrategy(),
+  ErrorType.ERR_INVALID_KEY,
+  () => new InvalidKeyErrorHandlingStrategy(),
 );
 
-export default NoDataErrorHadnlingStrategy;
+export default InvalidKeyErrorHandlingStrategy;

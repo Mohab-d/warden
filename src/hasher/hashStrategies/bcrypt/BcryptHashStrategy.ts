@@ -17,13 +17,11 @@ class BcryptHashStrategy implements IHashStrategy {
   private checkStringLength(data: string): void {
     if (data.length > 72) {
       const error = WardenError.overflowError({
-        plainData: data,
-        maxLength: 72,
-        dataLength: data.length,
+        value: data,
+        max: 72,
+        message:
+          "BcryptHashStrategy can not hash a string longer than 72 characters",
       });
-
-      error.message =
-        "BcryptHashStrategy can not hash a string longer than 72 characters";
 
       throw error;
     }

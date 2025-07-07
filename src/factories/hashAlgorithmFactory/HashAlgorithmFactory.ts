@@ -35,7 +35,7 @@ class HashAlgorithmFactory implements IHashFactory {
         return new ArgonHashingStrategy();
       default:
         throw WardenError.unknownOperation({
-          requestedStrategy: algorithmData.name,
+          name: "Unknown",
           message: "This hash uses an unkown hashing algorithm",
         });
     }

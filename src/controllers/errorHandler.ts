@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import AbstractAppError from "../abstracts/AbstractAppError";
 import APIResBuilder from "../builders/APIResBuilder";
-import errorsRegistry from "../registries/ErrorHandlingStrategyRegistry";
+import ErrorHandlingStrategyRegistry from "../registries/ErrorHandlingStrategyRegistry";
 
 // TODO: log errors
 function errorHandler(
@@ -13,7 +13,7 @@ function errorHandler(
   const responseBuilder = new APIResBuilder();
 
   if (error.isWardenError) {
-    const handler = errorsRegistry.getStrategy(error);
+    const handler = ErrorHandlingStrategyRegistry.instance.getStrategy(error);
 
     handler.handle(error);
 

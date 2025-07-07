@@ -2,27 +2,26 @@ import AbstractAppError from "../../abstracts/AbstractAppError";
 import IAppError from "../../interface/IAppError";
 import IErrorHandlingStrategy from "../../interface/IErrorHandlingStrategy";
 import ErrorHandlingStrategyRegistry from "../../registries/ErrorHandlingStrategyRegistry";
+import IUnknownDBContext from "../contextTypes/IUnknownDBContext";
 import ErrorType from "../ErrorType";
 
-type NoDataContext = Record<string, any>;
-
-class NoDataErrorHadnlingStrategy
-  implements IErrorHandlingStrategy<NoDataContext>
+class UnknownDBErrorHandlingStrategy
+  implements IErrorHandlingStrategy<IUnknownDBContext>
 {
-  httpCode: number = 400;
+  httpCode: number = 500;
 
-  handle(error: AbstractAppError<NoDataContext>): void {}
+  handle(error: AbstractAppError<IUnknownDBContext>): void {}
 
   getFormattedError(
-    error: AbstractAppError<NoDataContext>,
-  ): IAppError<NoDataContext> {
+    error: AbstractAppError<IUnknownDBContext>,
+  ): IAppError<IUnknownDBContext> {
     return error.getFormat();
   }
 }
 
 ErrorHandlingStrategyRegistry.instance.registerStrategyFactory(
-  ErrorType.ERR_NO_Data,
-  () => new NoDataErrorHadnlingStrategy(),
+  ErrorType.ERR_UNKNOWN_DB,
+  () => new UnknownDBErrorHandlingStrategy(),
 );
 
-export default NoDataErrorHadnlingStrategy;
+export default UnknownDBErrorHandlingStrategy;

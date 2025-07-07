@@ -1,0 +1,3 @@
+interface IMissingProperty {
+  name: string;
+}

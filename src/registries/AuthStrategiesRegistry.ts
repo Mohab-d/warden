@@ -31,7 +31,7 @@ class AuthStrategyRegistry implements IAuthStrategiesRegistry {
 
     if (!strategy) {
       throw WardenError.unknownOperation({
-        strategy: name,
+        name: name,
       });
     }
 
@@ -39,8 +39,8 @@ class AuthStrategyRegistry implements IAuthStrategiesRegistry {
   }
 }
 
-const authStrategiesRegistry = AuthStrategyRegistry.instance
+AuthStrategyRegistry.instance
   .registerStrategyFactory("customer", getCustomerAuthStrategy)
   .registerStrategyFactory("third-party-app", getThirdPartyAppAuthStrategy);
 
-export default authStrategiesRegistry;
+export default AuthStrategyRegistry;

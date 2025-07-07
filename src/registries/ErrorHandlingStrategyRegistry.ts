@@ -1,9 +1,5 @@
 import AbstractAppError from "../abstracts/AbstractAppError";
-import InvalidSchemaErrorHandlingStrategy from "../errorHandler/errorHandlingStrategies/InvalidSchemaErrorHandlingStrategy";
-import NoDataErrorHadnlingStrategy from "../errorHandler/errorHandlingStrategies/NoDataErrorHandlingStrategy";
-import NoRecordErrorHandlingStrategy from "../errorHandler/errorHandlingStrategies/NoRecordErrorHandlingStrategy";
 import UknownErrorHandlingStrategy from "../errorHandler/errorHandlingStrategies/UknownErrorHandlingStrategy";
-import ValueExistErrorStrategy from "../errorHandler/errorHandlingStrategies/ValueExistErrorStrategy";
 import ErrorType from "../errorHandler/ErrorType";
 import IErrorHandlingStrategy from "../interface/IErrorHandlingStrategy";
 import IErrorHandlingStrategyRegistry from "../interface/IErrorHandlingStrategyRegistry";
@@ -47,22 +43,4 @@ class ErrorHandlingStrategyRegistry implements IErrorHandlingStrategyRegistry {
   }
 }
 
-const errorsRegistry = ErrorHandlingStrategyRegistry.instance
-  .registerStrategyFactory(
-    ErrorType.ERR_VALUE_EXIST,
-    () => new ValueExistErrorStrategy(),
-  )
-  .registerStrategyFactory(
-    ErrorType.ERR_INVALID_SCHEMA,
-    () => new InvalidSchemaErrorHandlingStrategy(),
-  )
-  .registerStrategyFactory(
-    ErrorType.ERR_NO_Data,
-    () => new NoDataErrorHadnlingStrategy(),
-  )
-  .registerStrategyFactory(
-    ErrorType.ERR_NO_RECORD,
-    () => new NoRecordErrorHandlingStrategy(),
-  );
-
-export default errorsRegistry;
+export default ErrorHandlingStrategyRegistry;

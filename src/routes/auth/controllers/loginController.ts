@@ -1,13 +1,14 @@
 import { NextFunction, Request, Response } from "express";
-import authStrategiesRegistry from "../../../registries/AuthStrategiesRegistry";
 import APIResBuilder from "../../../builders/APIResBuilder";
+import AuthStrategyRegistry from "../../../registries/AuthStrategiesRegistry";
 
 function loginController(
   clientType: string,
 ): (req: Request, res: Response, next: NextFunction) => Promise<void> {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const authStrategy = authStrategiesRegistry.getStrategy(clientType);
+      const authStrategy =
+        AuthStrategyRegistry.instance.getStrategy(clientType);
 
       const client = await authStrategy.login(req.body);
 

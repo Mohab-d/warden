@@ -49,7 +49,7 @@ class RepoFactory {
 
   private createUnknownDBErr(): WardenError<any> {
     const unknownDBError = WardenError.unknownOperation({
-      unknownDB: appConfigs.db,
+      name: appConfigs.db,
     });
     unknownDBError.message =
       "The database specified in the configs is not implemented";

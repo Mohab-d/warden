@@ -13,6 +13,7 @@ abstract class AbstractHashAlgorithmDataParser
     }
 
     throw WardenError.unknownOperation({
+      name: "Unknown",
       message:
         "Could not specify which hashing algorithm is used to hash this password",
     });

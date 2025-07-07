@@ -2,27 +2,26 @@ import AbstractAppError from "../../abstracts/AbstractAppError";
 import IAppError from "../../interface/IAppError";
 import IErrorHandlingStrategy from "../../interface/IErrorHandlingStrategy";
 import ErrorHandlingStrategyRegistry from "../../registries/ErrorHandlingStrategyRegistry";
+import IOverflowContext from "../contextTypes/IOverflowContext";
 import ErrorType from "../ErrorType";
 
-type NoDataContext = Record<string, any>;
-
-class NoDataErrorHadnlingStrategy
-  implements IErrorHandlingStrategy<NoDataContext>
+class OverflowErrorHandlingStrategy
+  implements IErrorHandlingStrategy<IOverflowContext>
 {
-  httpCode: number = 400;
+  httpCode: number = 500;
 
-  handle(error: AbstractAppError<NoDataContext>): void {}
+  handle(error: AbstractAppError<IOverflowContext>): void {}
 
   getFormattedError(
-    error: AbstractAppError<NoDataContext>,
-  ): IAppError<NoDataContext> {
+    error: AbstractAppError<IOverflowContext>,
+  ): IAppError<IOverflowContext> {
     return error.getFormat();
   }
 }
 
 ErrorHandlingStrategyRegistry.instance.registerStrategyFactory(
-  ErrorType.ERR_NO_Data,
-  () => new NoDataErrorHadnlingStrategy(),
+  ErrorType.ERR_OVERFLOW,
+  () => new OverflowErrorHandlingStrategy(),
 );
 
-export default NoDataErrorHadnlingStrategy;
+export default OverflowErrorHandlingStrategy;

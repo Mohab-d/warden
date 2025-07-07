@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import authStrategiesRegistry from "../../../registries/AuthStrategiesRegistry";
 import APIResBuilder from "../../../builders/APIResBuilder";
+import AuthStrategyRegistry from "../../../registries/AuthStrategiesRegistry";
 
 function refreshController(
   clientType: string,
@@ -9,7 +9,8 @@ function refreshController(
     try {
       const refreshToken = req.body.refreshToken;
 
-      const authStrategy = authStrategiesRegistry.getStrategy(clientType);
+      const authStrategy =
+        AuthStrategyRegistry.instance.getStrategy(clientType);
 
       const refreshData = await authStrategy.refresh(refreshToken);
 

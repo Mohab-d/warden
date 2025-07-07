@@ -1,5 +1,8 @@
 import AbstractAppError from "../../abstracts/AbstractAppError";
+import IInvalidRefreshTokenContext from "../contextTypes/IInvalidRefreshTokenContext";
 import IInvalidSchemaContext from "../contextTypes/IInvalidSchemaContext";
+import IOverflowContext from "../contextTypes/IOverflowContext";
+import IUnknownOperationContext from "../contextTypes/IUnknownOperationContext";
 import ErrorType from "../ErrorType";
 
 class WardenError<T> extends AbstractAppError<T> {
@@ -7,7 +10,7 @@ class WardenError<T> extends AbstractAppError<T> {
     context?: IInvalidSchemaContext,
   ): WardenError<IInvalidSchemaContext> {
     return new WardenError<IInvalidSchemaContext>(
-      "Schema validation error",
+      "InvalidSchema",
       "Request sent does not match defined schema",
       true,
       ErrorType.ERR_INVALID_SCHEMA,
@@ -15,7 +18,9 @@ class WardenError<T> extends AbstractAppError<T> {
     );
   }
 
-  public static unknownOperation(context?: any): WardenError<any> {
+  public static unknownOperation(
+    context?: IUnknownOperationContext,
+  ): WardenError<any> {
     return new WardenError(
       "unknownOperation",
       `You tried to perform an unknown operation`,
@@ -35,7 +40,9 @@ class WardenError<T> extends AbstractAppError<T> {
     );
   }
 
-  public static invalidToken(context?: any): WardenError<any> {
+  public static invalidToken(
+    context?: IInvalidRefreshTokenContext,
+  ): WardenError<any> {
     return new WardenError(
       "InvalidToken",
       "This token is invalid, you need to login again",
@@ -87,7 +94,7 @@ class WardenError<T> extends AbstractAppError<T> {
     );
   }
 
-  public static overflowError(context?: any): WardenError<any> {
+  public static overflowError(context?: IOverflowContext): WardenError<any> {
     return new WardenError(
       "OverflowError",
       "You provided some data that caused a limit overflow",
