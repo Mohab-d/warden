@@ -107,7 +107,7 @@ hash the given hash. This ensures a seamless login experience and a convenient w
 
 ---
 
-- Schema validator
+###Schema validator
 
 > _Factory, Adapter_
 
