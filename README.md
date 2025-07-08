@@ -132,7 +132,7 @@ pattern to create our API response.
 # Usage
 
 Now, we can write few express end points that can handle all types of clients be delegating the work
-to our authentication manager components.
+to our authentication manager component.
 
 ---
 
