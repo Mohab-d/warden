@@ -1,4 +1,4 @@
-![project logo](./public/images/wardenLogo.png)
+<img src="./public/images/wardenLogo.png" alt="Warden logo" width="200"/>
 
 # Warden
 
@@ -31,9 +31,11 @@ We use the following objects mainly to add handling strategies
 - `HashAlgorithmFactory`: use to get a hashing algorithm factory through and identifier or by the hash
 - `RepoFactory`: use to get a repository to access data on the database
 
+---
+
 ### Authentication Manager
 
-_Registry, Singleton, Strategy_
+> _Registry, Singleton, Strategy_
 
 Authenticate clients using JWT tokens for human clients and API keys for bot client (apps and bots).
 
@@ -46,9 +48,11 @@ make warden largely scalable and we reduce bad code written to be only inside th
 is also very helpful when wanting to implement testing because you can unit test all the authentication
 logic of a client by testing the strategy involved.
 
+---
+
 ### Error Handler
 
-_Registry, Singleton, Strategy_
+> _Registry, Singleton, Strategy_
 
 Define a consistent error structure and handling logic for the entire app.
 
@@ -68,9 +72,11 @@ This architecture enable us to handle errors and the write logic to handle more 
 grow in size and more errors are thrown, this also makes it easy to add logging since we can add the
 logging logic in the handle() method of the handling strategies.
 
+---
+
 ### Database Layer
 
-_Factory, Repository_
+> _Factory, Repository_
 
 Define an abstract layer to interact with the database decoupling the business logic from the storage logic
 and enabling us to swap the database or to use a new ORM technology anytime.
@@ -79,9 +85,11 @@ It's best to implement an interface for every repository implementation we write
 
 We define `RepoFactory` and some concrete implementations of the repos interfaces (see src/interface/repos)
 
+---
+
 ### Hash manager
 
-_Factory, Chain of responsibility, Strategy_
+> _Factory, Chain of responsibility, Strategy_
 
 Hashing algorithms evolve continuously, hash manager enable us to use any hashing algorithm.
 
@@ -97,9 +105,11 @@ We use the **Chain of responsibility** pattern to chain parsers of the hashing a
 `HashFactory.getAlgorithmFromHash()` can call the head of the chain to now which algorithm is used to
 hash the given hash. This ensures a seamless login experience and a convenient way to rehash the client password with the new algorithm.
 
+---
+
 - Schema validator
 
-_Factory, Adapter_
+> _Factory, Adapter_
 
 Protect the API from unsafe data sent by the clients.
 
@@ -108,22 +118,30 @@ The `SchemaValidatorFactory` enable us to use any schema validator we want, I us
 We define an interface `ISchemvaValidator` which is used by Warden code to validate schemas, now we
 implement `JoiSchemaValidator` which is an adapter that adapts the Joi error to `WardenError`.
 
+---
+
 ### API response
 
-_Builder_
+> _Builder_
 
 To assure a consistent response structure, we define an interface `IAPIAuthResponse` and use the builder
 pattern to create our API response.
+
+---
 
 # Usage
 
 Now, we can write few express end points that can handle all types of clients be delegating the work
 to our authentication manager components.
 
+---
+
 # Testing
 
 While not present yet, the current architecture was built to be easily tested, tests are coming in future
 improvements
+
+---
 
 # Future plans
 
