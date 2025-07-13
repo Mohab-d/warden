@@ -4,18 +4,18 @@ import IAuthStrategy from "../interface/IAuthStrategy";
 import getCustomerAuthStrategy from "./authStrategyFactories/getCustomerAuthStrategy";
 import getThirdPartyAppAuthStrategy from "./authStrategyFactories/getThirdPartyAppAuthStrategy";
 
-class AuthStrategyRegistry implements IAuthStrategiesRegistry {
-  private static _instance: AuthStrategyRegistry;
+class AuthStrategiesRegistry implements IAuthStrategiesRegistry {
+  private static _instance: AuthStrategiesRegistry;
   private _strategyFactories: Record<string, () => IAuthStrategy<any>> = {};
 
   private constructor() {}
 
-  public static get instance(): AuthStrategyRegistry {
-    if (!AuthStrategyRegistry._instance) {
-      AuthStrategyRegistry._instance = new AuthStrategyRegistry();
+  public static get instance(): AuthStrategiesRegistry {
+    if (!AuthStrategiesRegistry._instance) {
+      AuthStrategiesRegistry._instance = new AuthStrategiesRegistry();
     }
 
-    return AuthStrategyRegistry._instance;
+    return AuthStrategiesRegistry._instance;
   }
 
   public registerStrategyFactory(
@@ -39,8 +39,8 @@ class AuthStrategyRegistry implements IAuthStrategiesRegistry {
   }
 }
 
-AuthStrategyRegistry.instance
+AuthStrategiesRegistry.instance
   .registerStrategyFactory("customer", getCustomerAuthStrategy)
   .registerStrategyFactory("third-party-app", getThirdPartyAppAuthStrategy);
 
-export default AuthStrategyRegistry;
+export default AuthStrategiesRegistry;

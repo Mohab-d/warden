@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import APIResBuilder from "../../../builders/APIResBuilder";
-import AuthStrategyRegistry from "../../../registries/AuthStrategiesRegistry";
+import AuthStrategiesRegistry from "../../../registries/AuthStrategiesRegistry";
 
 function loginController(
   clientType: string,
@@ -8,7 +8,7 @@ function loginController(
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const authStrategy =
-        AuthStrategyRegistry.instance.getStrategy(clientType);
+        AuthStrategiesRegistry.instance.getStrategy(clientType);
 
       const client = await authStrategy.login(req.body);
 

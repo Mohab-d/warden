@@ -10,7 +10,7 @@ import IAuthStrategy from "../../interface/IAuthStrategy";
 import ITokenRepo from "../../interface/repos/ITokenRepo";
 import { IHashFactory } from "../../interface/IHashFactory";
 
-class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
+class CustomerAuthStrategy implements IAuthStrategy<ICustomerData> {
   private _customerRepo: ICustomerRepo;
   private _tokenRepo: ITokenRepo;
   private _hashFactory: IHashFactory;
@@ -20,7 +20,6 @@ class CustomerAuthStrategy extends IAuthStrategy<ICustomerData> {
     tokenRepo: ITokenRepo,
     hashFactory: IHashFactory,
   ) {
-    super();
     this._customerRepo = customerRepo;
     this._tokenRepo = tokenRepo;
     this._hashFactory = hashFactory;
