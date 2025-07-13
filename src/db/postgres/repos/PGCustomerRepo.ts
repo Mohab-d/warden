@@ -102,7 +102,7 @@ class PGCustomerRepo implements ICustomerRepo {
       const records = await db.query(
         `SELECT
           CASE
-              WHEN EXISTS (SELECT 1 FROM customer WHERE username = $1) THEN 1
+              WHEN EXISTS (SELECT 1 FROM customer, WHERE username = $1) THEN 1
               ELSE 0
           END AS username,
           CASE

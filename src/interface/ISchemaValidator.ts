@@ -1,7 +1,7 @@
 import ISchemaValidationResult from "./ISchemaValidationResult";
 
-interface ISchemaValidation {
+interface ISchemaValidator {
   validate(schema: any, data: object): ISchemaValidationResult;
 }
 
-export default ISchemaValidation;
+export default ISchemaValidator;

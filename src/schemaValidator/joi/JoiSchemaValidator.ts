@@ -1,11 +1,11 @@
 import { Schema, ValidationError } from "joi";
-import ISchemaValidation from "../../interface/ISchemaValidation";
+import ISchemaValidator from "../../interface/ISchemaValidator";
 import IInvalidSchemaContext from "../../errorHandler/contextTypes/IInvalidSchemaContext";
 import AbstractAppError from "../../abstracts/AbstractAppError";
 import WardenError from "../../errorHandler/definedError/WardenError";
 import ISchemaValidationResult from "../../interface/ISchemaValidationResult";
 
-class JoiSchemaValidator implements ISchemaValidation {
+class JoiSchemaValidator implements ISchemaValidator {
   public validate(schema: Schema, data: object): ISchemaValidationResult {
     const { value, error } = schema.validate(data);
 

@@ -1,11 +1,11 @@
 import WardenError from "../errorHandler/definedError/WardenError";
-import ISchemaValidation from "../interface/ISchemaValidation";
+import ISchemaValidator from "../interface/ISchemaValidator";
 import JoiSchemaValidator from "../schemaValidator/joi/JoiSchemaValidator";
 
 type SchemaValidators = "joi";
 
 class SchemaValidatorFactory {
-  public createValidator(name: SchemaValidators): ISchemaValidation {
+  public createValidator(name: SchemaValidators): ISchemaValidator {
     switch (name) {
       case "joi":
         return new JoiSchemaValidator();

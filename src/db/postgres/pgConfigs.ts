@@ -6,6 +6,7 @@ const pgConfigs = {
   database: process.env.PGDB,
   password: process.env.PGPASSWORD,
   port: parseInt(process.env.PGPORT as string),
+  neondb: process.env.PGNEONDB,
 };
 
 export default pgConfigs;
