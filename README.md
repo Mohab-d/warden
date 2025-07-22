@@ -2,7 +2,7 @@
 
 # Warden
 
-This is an authentication API project that is built to be extensible, scalable, and maintainable.
+This is an authentication service project that is built to be extensible and maintainable.
 I made this project mainly to see how design patterns help achieve a decoupled, easy to test system.
 
 # Security practices
