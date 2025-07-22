@@ -61,7 +61,7 @@ class PGTokenRepo implements ITokenRepo {
       db = await pgPool.connect();
 
       await db.query(
-        "UPDATE refresh_token SET active = FALSE WHERE user_id = $1",
+        "UPDATE refresh_token SET active = FALSE WHERE token = $1",
         [token],
       );
     } catch (error) {
