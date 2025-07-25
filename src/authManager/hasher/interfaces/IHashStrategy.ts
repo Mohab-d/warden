@@ -3,4 +3,4 @@ interface IHashStrategy {
   verify(data: string, encrypted: string): Promise<boolean>;
 }
 
-export default IHashStrategy;
+export { IHashStrategy };

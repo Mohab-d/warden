@@ -1,7 +1,7 @@
-import CustomerAuthStrategy from "../../authManager/authStrategies/CustomerAuthStrategy";
-import HashAlgorithmFactory from "../../factories/hashAlgorithmFactory/HashAlgorithmFactory";
 import RepoFactory from "../../factories/RepoFactory";
-import IAuthStrategy from "../../interface/IAuthStrategy";
+import { CustomerAuthStrategy } from "../authStrategies/CustomerAuthStrategy";
+import { HashAlgorithmFactory } from "../hasher/hashAlgorithmFactory/HashAlgorithmFactory";
+import { IAuthStrategy } from "../interfaces/IAuthStrategy";
 
 function getCustomerAuthStrategy(): IAuthStrategy<any> {
   const repoFactory = new RepoFactory();
@@ -12,4 +12,4 @@ function getCustomerAuthStrategy(): IAuthStrategy<any> {
   );
 }
 
-export default getCustomerAuthStrategy;
+export { getCustomerAuthStrategy };

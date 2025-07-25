@@ -1,4 +1,4 @@
-import IAuthData from "./IAuthData";
+import { IAuthData } from "./IAuthData";
 
 interface IAuthStrategy<T> {
   signup(clientData: T): Promise<IAuthData>;
@@ -8,4 +8,4 @@ interface IAuthStrategy<T> {
   revokeRefreshToken(refreshToken: string): Promise<void>;
 }
 
-export default IAuthStrategy;
+export { IAuthStrategy };

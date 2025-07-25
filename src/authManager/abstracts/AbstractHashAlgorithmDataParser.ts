@@ -1,6 +1,6 @@
-import WardenError from "../errorHandler/definedError/WardenError";
-import IHashAlgorithmData from "../interface/IHashAlgorithmData";
-import IHashAlgorithmDataParser from "../interface/IHashAlgorithmDataParser";
+import WardenError from "../../errorHandler/definedError/WardenError";
+import { IHashAlgorithmData } from "../hasher/interfaces/IHashAlgorithmData";
+import { IHashAlgorithmDataParser } from "../hasher/interfaces/IHashAlgorithmDataParser";
 
 abstract class AbstractHashAlgorithmDataParser
   implements IHashAlgorithmDataParser

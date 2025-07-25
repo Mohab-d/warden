@@ -1,11 +1,11 @@
 import IThirdPartyAppData from "../../interface/IThirdPartyAppData";
-import IAuthData from "../../interface/IAuthData";
-import IAuthStrategy from "../../interface/IAuthStrategy";
 import IThirdPartyAppRepo from "../../interface/repos/IThirdPartyAppRepo";
 import { randomBytes } from "crypto";
 import IAPIKeyRepo from "../../interface/repos/IAPIKeyRepo";
 import WardenError from "../../errorHandler/definedError/WardenError";
-import { IHashFactory } from "../../interface/IHashFactory";
+import { IHashFactory } from "../hasher/interfaces/IHashFactory";
+import { IAuthStrategy } from "../interfaces/IAuthStrategy";
+import { IAuthData } from "../interfaces/IAuthData";
 
 class ThirdPartyAppAuthStrategy implements IAuthStrategy<IThirdPartyAppData> {
   private _appRepo: IThirdPartyAppRepo;
@@ -102,4 +102,4 @@ class ThirdPartyAppAuthStrategy implements IAuthStrategy<IThirdPartyAppData> {
   }
 }
 
-export default ThirdPartyAppAuthStrategy;
+export { ThirdPartyAppAuthStrategy };

@@ -5,4 +5,4 @@ interface IHashAlgorithmDataParser {
   setNextParser(parser: IHashAlgorithmDataParser): IHashAlgorithmDataParser;
 }
 
-export default IHashAlgorithmDataParser;
+export { IHashAlgorithmDataParser };

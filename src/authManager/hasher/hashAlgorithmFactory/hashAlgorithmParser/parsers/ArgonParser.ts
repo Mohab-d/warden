@@ -1,5 +1,5 @@
 import AbstractHashAlgorithmDataParser from "../../../../abstracts/AbstractHashAlgorithmDataParser";
-import IHashAlgorithmData from "../../../../interface/IHashAlgorithmData";
+import { IHashAlgorithmData } from "../../../interfaces/IHashAlgorithmData";
 
 class ArgonParser extends AbstractHashAlgorithmDataParser {
   public parseAlgorithmData(hash: string): IHashAlgorithmData {
@@ -18,4 +18,4 @@ class ArgonParser extends AbstractHashAlgorithmDataParser {
   }
 }
 
-export default ArgonParser;
+export { ArgonParser };

@@ -1,6 +1,6 @@
-import ThirdPartyAppAuthStrategy from "../../authManager/authStrategies/ThirdPartyAppAuthStrategy";
-import HashAlgorithmFactory from "../../factories/hashAlgorithmFactory/HashAlgorithmFactory";
 import RepoFactory from "../../factories/RepoFactory";
+import { ThirdPartyAppAuthStrategy } from "../authStrategies/ThirdPartyAppAuthStrategy";
+import { HashAlgorithmFactory } from "../hasher/hashAlgorithmFactory/HashAlgorithmFactory";
 
 function getThirdPartyAppAuthStrategy() {
   const repoFactory = new RepoFactory();
@@ -11,4 +11,4 @@ function getThirdPartyAppAuthStrategy() {
   );
 }
 
-export default getThirdPartyAppAuthStrategy;
+export { getThirdPartyAppAuthStrategy };

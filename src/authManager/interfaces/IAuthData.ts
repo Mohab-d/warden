@@ -4,4 +4,4 @@ interface IAuthData {
   apiKey?: string;
 }
 
-export default IAuthData;
+export { IAuthData };

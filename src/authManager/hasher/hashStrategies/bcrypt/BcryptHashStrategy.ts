@@ -1,7 +1,7 @@
-import { appConfigs } from "../../../config/appConfigs";
-import WardenError from "../../../errorHandler/definedError/WardenError";
-import IHashStrategy from "../../../interface/IHashStrategy";
 import * as bcrypt from "bcrypt";
+import { IHashStrategy } from "../../interfaces/IHashStrategy";
+import { appConfigs } from "../../../../config/appConfigs";
+import WardenError from "../../../../errorHandler/definedError/WardenError";
 
 class BcryptHashStrategy implements IHashStrategy {
   public async hash(data: string): Promise<string> {
@@ -28,4 +28,4 @@ class BcryptHashStrategy implements IHashStrategy {
   }
 }
 
-export default BcryptHashStrategy;
+export { BcryptHashStrategy };

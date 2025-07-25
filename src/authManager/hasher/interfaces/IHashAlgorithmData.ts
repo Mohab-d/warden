@@ -3,4 +3,4 @@ interface IHashAlgorithmData {
   version: string;
 }
 
-export default IHashAlgorithmData;
+export { IHashAlgorithmData };

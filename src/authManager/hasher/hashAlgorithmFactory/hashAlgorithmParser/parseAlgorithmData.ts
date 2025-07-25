@@ -1,5 +1,5 @@
-import ArgonParser from "./parsers/ArgonParser";
-import BcryptParser from "./parsers/BcryptParser";
+import { ArgonParser } from "./parsers/ArgonParser";
+import { BcryptParser } from "./parsers/BcryptParser";
 
 // define parsers
 const bcrypt = new BcryptParser();
@@ -10,4 +10,4 @@ bcrypt.setNextParser(argon);
 
 const hashAlgorithmParser = bcrypt;
 
-export default hashAlgorithmParser;
+export { hashAlgorithmParser };

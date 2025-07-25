@@ -1,10 +1,7 @@
 import WardenError from "../errorHandler/definedError/WardenError";
-import IAuthStrategiesRegistry from "../interface/IAuthStrategiesRegistry";
-import IAuthStrategy from "../interface/IAuthStrategy";
-import getCustomerAuthStrategy from "./authStrategyFactories/getCustomerAuthStrategy";
-import getThirdPartyAppAuthStrategy from "./authStrategyFactories/getThirdPartyAppAuthStrategy";
+import { IAuthStrategy } from "./interfaces/IAuthStrategy";
 
-class AuthStrategiesRegistry implements IAuthStrategiesRegistry {
+class AuthStrategiesRegistry {
   private static _instance: AuthStrategiesRegistry;
   private _strategyFactories: Record<string, () => IAuthStrategy<any>> = {};
 
@@ -39,8 +36,4 @@ class AuthStrategiesRegistry implements IAuthStrategiesRegistry {
   }
 }
 
-AuthStrategiesRegistry.instance
-  .registerStrategyFactory("customer", getCustomerAuthStrategy)
-  .registerStrategyFactory("third-party-app", getThirdPartyAppAuthStrategy);
-
-export default AuthStrategiesRegistry;
+export { AuthStrategiesRegistry };

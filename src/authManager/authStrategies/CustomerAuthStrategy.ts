@@ -1,14 +1,14 @@
 import { appConfigs } from "../../config/appConfigs";
 import WardenError from "../../errorHandler/definedError/WardenError";
 import ErrorType from "../../errorHandler/ErrorType";
-import IAuthData from "../../interface/IAuthData";
 import ICustomerData from "../../interface/ICustomerData";
 import ICustomerLoginData from "../../interface/ICustomerLoginData";
 import * as jwt from "jsonwebtoken";
 import ICustomerRepo from "../../interface/repos/ICustomerRepo";
-import IAuthStrategy from "../../interface/IAuthStrategy";
 import ITokenRepo from "../../interface/repos/ITokenRepo";
-import { IHashFactory } from "../../interface/IHashFactory";
+import { IHashFactory } from "../hasher/interfaces/IHashFactory";
+import { IAuthStrategy } from "../interfaces/IAuthStrategy";
+import { IAuthData } from "../interfaces/IAuthData";
 
 class CustomerAuthStrategy implements IAuthStrategy<ICustomerData> {
   private _customerRepo: ICustomerRepo;
@@ -174,4 +174,4 @@ class CustomerAuthStrategy implements IAuthStrategy<ICustomerData> {
   }
 }
 
-export default CustomerAuthStrategy;
+export { CustomerAuthStrategy };

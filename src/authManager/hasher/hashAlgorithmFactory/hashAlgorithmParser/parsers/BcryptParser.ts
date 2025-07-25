@@ -1,5 +1,5 @@
 import AbstractHashAlgorithmDataParser from "../../../../abstracts/AbstractHashAlgorithmDataParser";
-import IHashAlgorithmData from "../../../../interface/IHashAlgorithmData";
+import { IHashAlgorithmData } from "../../../interfaces/IHashAlgorithmData";
 
 class BcryptParser extends AbstractHashAlgorithmDataParser {
   public parseAlgorithmData(hash: string): IHashAlgorithmData {
@@ -18,4 +18,4 @@ class BcryptParser extends AbstractHashAlgorithmDataParser {
   }
 }
 
-export default BcryptParser;
+export { BcryptParser };

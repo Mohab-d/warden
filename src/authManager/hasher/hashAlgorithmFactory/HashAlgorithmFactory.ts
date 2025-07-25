@@ -1,10 +1,10 @@
-import WardenError from "../../errorHandler/definedError/WardenError";
-import ArgonHashingStrategy from "../../hasher/hashStrategies/argon/ArgonHashingStrategy";
-import BcryptHashStrategy from "../../hasher/hashStrategies/bcrypt/BcryptHashStrategy";
-import IHashAlgorithmDataParser from "../../interface/IHashAlgorithmDataParser";
-import { HashAlgorithmName, IHashFactory } from "../../interface/IHashFactory";
-import IHashStrategy from "../../interface/IHashStrategy";
-import hashAlgorithmParser from "./hashAlgorithmParser/parseAlgorithmData";
+import WardenError from "../../../errorHandler/definedError/WardenError";
+import { ArgonHashingStrategy } from "../hashStrategies/argon/ArgonHashingStrategy";
+import { BcryptHashStrategy } from "../hashStrategies/bcrypt/BcryptHashStrategy";
+import { IHashAlgorithmDataParser } from "../interfaces/IHashAlgorithmDataParser";
+import { HashAlgorithmName, IHashFactory } from "../interfaces/IHashFactory";
+import { IHashStrategy } from "../interfaces/IHashStrategy";
+import { hashAlgorithmParser } from "./hashAlgorithmParser/parseAlgorithmData";
 
 class HashAlgorithmFactory implements IHashFactory {
   private _preferredAlgorithm: HashAlgorithmName = "argon_2";
@@ -42,4 +42,4 @@ class HashAlgorithmFactory implements IHashFactory {
   }
 }
 
-export default HashAlgorithmFactory;
+export { HashAlgorithmFactory };

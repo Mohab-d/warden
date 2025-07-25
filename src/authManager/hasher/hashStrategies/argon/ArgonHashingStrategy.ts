@@ -1,5 +1,5 @@
 import { hash, verify } from "argon2";
-import IHashStrategy from "../../../interface/IHashStrategy";
+import { IHashStrategy } from "../../interfaces/IHashStrategy";
 
 class ArgonHashingStrategy implements IHashStrategy {
   public async hash(data: string): Promise<string> {
@@ -11,4 +11,4 @@ class ArgonHashingStrategy implements IHashStrategy {
   }
 }
 
-export default ArgonHashingStrategy;
+export { ArgonHashingStrategy };
