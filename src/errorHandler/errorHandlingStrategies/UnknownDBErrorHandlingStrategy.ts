@@ -1,16 +1,16 @@
-import AbstractAppError from "../../abstracts/AbstractAppError";
-import IAppError from "../../interface/IAppError";
-import IErrorHandlingStrategy from "../../interface/IErrorHandlingStrategy";
-import ErrorHandlingStrategyRegistry from "../../registries/ErrorHandlingStrategyRegistry";
-import IUnknownDBContext from "../contextTypes/IUnknownDBContext";
-import ErrorType from "../ErrorType";
+import { AbstractAppError } from "../abstracts/AbstractAppError";
+import { IUnknownDBContext } from "../contextTypes/IUnknownDBContext";
+import { ErrorHandlingStrategyRegistry } from "../ErrorHandlingStrategyRegistry";
+import { ErrorType } from "../ErrorType";
+import { IAppError } from "../interfaces/IAppError";
+import { IErrorHandlingStrategy } from "../interfaces/IErrorHandlingStrategy";
 
 class UnknownDBErrorHandlingStrategy
   implements IErrorHandlingStrategy<IUnknownDBContext>
 {
   httpCode: number = 500;
 
-  handle(error: AbstractAppError<IUnknownDBContext>): void {}
+  handle(): void {}
 
   getFormattedError(
     error: AbstractAppError<IUnknownDBContext>,
@@ -24,4 +24,4 @@ ErrorHandlingStrategyRegistry.instance.registerStrategyFactory(
   () => new UnknownDBErrorHandlingStrategy(),
 );
 
-export default UnknownDBErrorHandlingStrategy;
+export { UnknownDBErrorHandlingStrategy };

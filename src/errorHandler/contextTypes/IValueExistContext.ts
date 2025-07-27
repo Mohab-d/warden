@@ -3,4 +3,4 @@ interface IValueExistContext {
   valueName: string;
 }
 
-export default IValueExistContext;
+export { IValueExistContext };

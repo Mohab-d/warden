@@ -1,4 +1,4 @@
-import RepoFactory from "../../factories/RepoFactory";
+import { RepoFactory } from "../../db";
 import { ThirdPartyAppAuthStrategy } from "../authStrategies/ThirdPartyAppAuthStrategy";
 import { HashAlgorithmFactory } from "../hasher/hashAlgorithmFactory/HashAlgorithmFactory";
 

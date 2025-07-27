@@ -1,6 +1,6 @@
-import AbstractAppError from "../../abstracts/AbstractAppError";
-import IAppError from "../../interface/IAppError";
-import IErrorHandlingStrategy from "../../interface/IErrorHandlingStrategy";
+import { AbstractAppError } from "../abstracts/AbstractAppError";
+import { IAppError } from "../interfaces/IAppError";
+import { IErrorHandlingStrategy } from "../interfaces/IErrorHandlingStrategy";
 
 class UknownErrorHandlingStrategy implements IErrorHandlingStrategy<any> {
   httpCode: number = 500;
@@ -12,4 +12,4 @@ class UknownErrorHandlingStrategy implements IErrorHandlingStrategy<any> {
   }
 }
 
-export default UknownErrorHandlingStrategy;
+export { UknownErrorHandlingStrategy };

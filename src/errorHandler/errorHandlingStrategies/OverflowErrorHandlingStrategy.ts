@@ -1,9 +1,9 @@
-import AbstractAppError from "../../abstracts/AbstractAppError";
-import IAppError from "../../interface/IAppError";
-import IErrorHandlingStrategy from "../../interface/IErrorHandlingStrategy";
-import ErrorHandlingStrategyRegistry from "../../registries/ErrorHandlingStrategyRegistry";
-import IOverflowContext from "../contextTypes/IOverflowContext";
-import ErrorType from "../ErrorType";
+import { AbstractAppError } from "../abstracts/AbstractAppError";
+import { IOverflowContext } from "../contextTypes/IOverflowContext";
+import { ErrorHandlingStrategyRegistry } from "../ErrorHandlingStrategyRegistry";
+import { ErrorType } from "../ErrorType";
+import { IAppError } from "../interfaces/IAppError";
+import { IErrorHandlingStrategy } from "../interfaces/IErrorHandlingStrategy";
 
 class OverflowErrorHandlingStrategy
   implements IErrorHandlingStrategy<IOverflowContext>
@@ -24,4 +24,4 @@ ErrorHandlingStrategyRegistry.instance.registerStrategyFactory(
   () => new OverflowErrorHandlingStrategy(),
 );
 
-export default OverflowErrorHandlingStrategy;
+export { OverflowErrorHandlingStrategy };

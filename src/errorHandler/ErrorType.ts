@@ -16,4 +16,4 @@ enum ErrorType {
   ERR_UNKOWN_ERROR = "err_unkown_error",
 }
 
-export default ErrorType;
+export { ErrorType };

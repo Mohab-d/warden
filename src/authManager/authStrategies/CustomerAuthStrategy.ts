@@ -1,14 +1,13 @@
 import { appConfigs } from "../../config/appConfigs";
-import WardenError from "../../errorHandler/definedError/WardenError";
-import ErrorType from "../../errorHandler/ErrorType";
 import ICustomerData from "../../interface/ICustomerData";
 import ICustomerLoginData from "../../interface/ICustomerLoginData";
 import * as jwt from "jsonwebtoken";
-import ICustomerRepo from "../../interface/repos/ICustomerRepo";
-import ITokenRepo from "../../interface/repos/ITokenRepo";
+import ICustomerRepo from "../../db/interfaces/ICustomerRepo";
+import ITokenRepo from "../../db/interfaces/ITokenRepo";
 import { IHashFactory } from "../hasher/interfaces/IHashFactory";
 import { IAuthStrategy } from "../interfaces/IAuthStrategy";
 import { IAuthData } from "../interfaces/IAuthData";
+import { WardenError, ErrorType } from "../../errorHandler";
 
 class CustomerAuthStrategy implements IAuthStrategy<ICustomerData> {
   private _customerRepo: ICustomerRepo;

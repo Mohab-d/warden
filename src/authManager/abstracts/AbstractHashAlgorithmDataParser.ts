@@ -1,4 +1,4 @@
-import WardenError from "../../errorHandler/definedError/WardenError";
+import { WardenError } from "../../errorHandler";
 import { IHashAlgorithmData } from "../hasher/interfaces/IHashAlgorithmData";
 import { IHashAlgorithmDataParser } from "../hasher/interfaces/IHashAlgorithmDataParser";
 

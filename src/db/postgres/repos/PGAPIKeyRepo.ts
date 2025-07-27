@@ -1,4 +1,4 @@
-import IAPIKeyRepo from "../../../interface/repos/IAPIKeyRepo";
+import IAPIKeyRepo from "../../interfaces/IAPIKeyRepo";
 import pgPool from "../pgPool";
 
 class PGAPIKeyRepo implements IAPIKeyRepo {
@@ -74,4 +74,4 @@ class PGAPIKeyRepo implements IAPIKeyRepo {
   }
 }
 
-export default PGAPIKeyRepo;
+export { PGAPIKeyRepo };

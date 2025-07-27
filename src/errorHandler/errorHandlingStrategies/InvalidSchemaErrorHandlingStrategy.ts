@@ -1,9 +1,9 @@
-import AbstractAppError from "../../abstracts/AbstractAppError";
-import IAppError from "../../interface/IAppError";
-import IErrorHandlingStrategy from "../../interface/IErrorHandlingStrategy";
-import ErrorHandlingStrategyRegistry from "../../registries/ErrorHandlingStrategyRegistry";
-import IInvalidSchemaContext from "../contextTypes/IInvalidSchemaContext";
-import ErrorType from "../ErrorType";
+import { AbstractAppError } from "../abstracts/AbstractAppError";
+import { IInvalidSchemaContext } from "../contextTypes/IInvalidSchemaContext";
+import { ErrorHandlingStrategyRegistry } from "../ErrorHandlingStrategyRegistry";
+import { ErrorType } from "../ErrorType";
+import { IAppError } from "../interfaces/IAppError";
+import { IErrorHandlingStrategy } from "../interfaces/IErrorHandlingStrategy";
 
 class InvalidSchemaHandlingStrategy
   implements IErrorHandlingStrategy<IInvalidSchemaContext>
@@ -26,4 +26,4 @@ ErrorHandlingStrategyRegistry.instance.registerStrategyFactory(
   () => new InvalidSchemaHandlingStrategy(),
 );
 
-export default InvalidSchemaHandlingStrategy;
+export { InvalidSchemaHandlingStrategy };

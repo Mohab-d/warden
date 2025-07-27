@@ -1,4 +1,4 @@
-import IHashStrategy from "./IHashStrategy";
+import { IHashStrategy } from "./IHashStrategy";
 
 type HashAlgorithmName = "bcrypt" | "argon_2";
 

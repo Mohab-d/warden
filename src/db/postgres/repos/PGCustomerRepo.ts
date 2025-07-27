@@ -1,8 +1,8 @@
 import { PoolClient } from "pg";
-import WardenError from "../../../errorHandler/definedError/WardenError";
 import ICustomerData from "../../../interface/ICustomerData";
-import ICustomerRepo from "../../../interface/repos/ICustomerRepo";
+import ICustomerRepo from "../../interfaces/ICustomerRepo";
 import pgPool from "../pgPool";
+import { WardenError } from "../../../errorHandler";
 
 class PGCustomerRepo implements ICustomerRepo {
   public async findOneById(id: number): Promise<ICustomerData> {
@@ -102,7 +102,7 @@ class PGCustomerRepo implements ICustomerRepo {
       const records = await db.query(
         `SELECT
           CASE
-              WHEN EXISTS (SELECT 1 FROM customer, WHERE username = $1) THEN 1
+              WHEN EXISTS (SELECT 1 FROM customer WHERE username = $1) THEN 1
               ELSE 0
           END AS username,
           CASE
@@ -147,4 +147,4 @@ class PGCustomerRepo implements ICustomerRepo {
   }
 }
 
-export default PGCustomerRepo;
+export { PGCustomerRepo };

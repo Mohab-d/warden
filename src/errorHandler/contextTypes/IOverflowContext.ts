@@ -4,4 +4,4 @@ interface IOverflowContext {
   message?: string;
 }
 
-export default IOverflowContext;
+export { IOverflowContext };

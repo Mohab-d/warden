@@ -1,5 +1,5 @@
 import ITokenData from "../../../interface/ITokenData";
-import ITokenRepo from "../../../interface/repos/ITokenRepo";
+import ITokenRepo from "../../interfaces/ITokenRepo";
 import pgPool from "../pgPool";
 
 class PGTokenRepo implements ITokenRepo {
@@ -72,4 +72,4 @@ class PGTokenRepo implements ITokenRepo {
   }
 }
 
-export default PGTokenRepo;
+export { PGTokenRepo };

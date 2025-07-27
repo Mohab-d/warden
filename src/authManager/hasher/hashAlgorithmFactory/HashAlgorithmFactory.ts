@@ -1,4 +1,4 @@
-import WardenError from "../../../errorHandler/definedError/WardenError";
+import { WardenError } from "../../../errorHandler";
 import { ArgonHashingStrategy } from "../hashStrategies/argon/ArgonHashingStrategy";
 import { BcryptHashStrategy } from "../hashStrategies/bcrypt/BcryptHashStrategy";
 import { IHashAlgorithmDataParser } from "../interfaces/IHashAlgorithmDataParser";

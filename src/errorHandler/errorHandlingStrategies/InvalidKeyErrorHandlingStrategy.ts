@@ -1,8 +1,8 @@
-import AbstractAppError from "../../abstracts/AbstractAppError";
-import IAppError from "../../interface/IAppError";
-import IErrorHandlingStrategy from "../../interface/IErrorHandlingStrategy";
-import ErrorHandlingStrategyRegistry from "../../registries/ErrorHandlingStrategyRegistry";
-import ErrorType from "../ErrorType";
+import { AbstractAppError } from "../abstracts/AbstractAppError";
+import { ErrorHandlingStrategyRegistry } from "../ErrorHandlingStrategyRegistry";
+import { ErrorType } from "../ErrorType";
+import { IAppError } from "../interfaces/IAppError";
+import { IErrorHandlingStrategy } from "../interfaces/IErrorHandlingStrategy";
 
 class InvalidKeyErrorHandlingStrategy implements IErrorHandlingStrategy<any> {
   httpCode: number = 400;
@@ -19,4 +19,4 @@ ErrorHandlingStrategyRegistry.instance.registerStrategyFactory(
   () => new InvalidKeyErrorHandlingStrategy(),
 );
 
-export default InvalidKeyErrorHandlingStrategy;
+export { InvalidKeyErrorHandlingStrategy };

@@ -1,6 +1,6 @@
-import WardenError from "../../../errorHandler/definedError/WardenError";
+import { WardenError } from "../../../errorHandler";
 import IThirdPartyAppData from "../../../interface/IThirdPartyAppData";
-import IThirdPartyAppRepo from "../../../interface/repos/IThirdPartyAppRepo";
+import IThirdPartyAppRepo from "../../interfaces/IThirdPartyAppRepo";
 import pgPool from "../pgPool";
 
 class PGThirdPartyAppRepo implements IThirdPartyAppRepo {
@@ -39,4 +39,4 @@ VALUES ($1, $2, $3) RETURNING id, name, owner, owner_email;
   }
 }
 
-export default PGThirdPartyAppRepo;
+export { PGThirdPartyAppRepo };

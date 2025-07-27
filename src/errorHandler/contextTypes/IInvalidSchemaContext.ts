@@ -7,4 +7,4 @@ interface IInvalidSchemaContext {
   }[];
 }
 
-export default IInvalidSchemaContext;
+export { IInvalidSchemaContext };

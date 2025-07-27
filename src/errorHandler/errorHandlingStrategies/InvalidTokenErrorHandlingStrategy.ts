@@ -1,9 +1,9 @@
-import AbstractAppError from "../../abstracts/AbstractAppError";
-import IAppError from "../../interface/IAppError";
-import IErrorHandlingStrategy from "../../interface/IErrorHandlingStrategy";
-import ErrorHandlingStrategyRegistry from "../../registries/ErrorHandlingStrategyRegistry";
-import IInvalidRefreshTokenContext from "../contextTypes/IInvalidRefreshTokenContext";
-import ErrorType from "../ErrorType";
+import { AbstractAppError } from "../abstracts/AbstractAppError";
+import { IInvalidRefreshTokenContext } from "../contextTypes/IInvalidRefreshTokenContext";
+import { ErrorHandlingStrategyRegistry } from "../ErrorHandlingStrategyRegistry";
+import { ErrorType } from "../ErrorType";
+import { IAppError } from "../interfaces/IAppError";
+import { IErrorHandlingStrategy } from "../interfaces/IErrorHandlingStrategy";
 
 class InvalidTokenErrorHandlingStrategy
   implements IErrorHandlingStrategy<IInvalidRefreshTokenContext>
@@ -24,4 +24,4 @@ ErrorHandlingStrategyRegistry.instance.registerStrategyFactory(
   () => new InvalidTokenErrorHandlingStrategy(),
 );
 
-export default InvalidTokenErrorHandlingStrategy;
+export { InvalidTokenErrorHandlingStrategy };

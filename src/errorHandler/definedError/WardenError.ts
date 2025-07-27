@@ -1,9 +1,9 @@
-import AbstractAppError from "../../abstracts/AbstractAppError";
-import IInvalidRefreshTokenContext from "../contextTypes/IInvalidRefreshTokenContext";
-import IInvalidSchemaContext from "../contextTypes/IInvalidSchemaContext";
-import IOverflowContext from "../contextTypes/IOverflowContext";
-import IUnknownOperationContext from "../contextTypes/IUnknownOperationContext";
-import ErrorType from "../ErrorType";
+import { AbstractAppError } from "../abstracts/AbstractAppError";
+import { IInvalidRefreshTokenContext } from "../contextTypes/IInvalidRefreshTokenContext";
+import { IInvalidSchemaContext } from "../contextTypes/IInvalidSchemaContext";
+import { IOverflowContext } from "../contextTypes/IOverflowContext";
+import { IUnknownOperationContext } from "../contextTypes/IUnknownOperationContext";
+import { ErrorType } from "../ErrorType";
 
 class WardenError<T> extends AbstractAppError<T> {
   public static invalidSchema(
@@ -105,4 +105,4 @@ class WardenError<T> extends AbstractAppError<T> {
   }
 }
 
-export default WardenError;
+export { WardenError };

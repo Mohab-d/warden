@@ -3,4 +3,4 @@ interface IUnknownOperationContext {
   message?: string;
 }
 
-export default IUnknownOperationContext;
+export { IUnknownOperationContext };

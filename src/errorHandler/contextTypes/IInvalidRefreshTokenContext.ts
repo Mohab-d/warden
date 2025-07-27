@@ -2,4 +2,4 @@ interface IInvalidRefreshTokenContext {
   invalidRefreshToken: string;
 }
 
-export default IInvalidRefreshTokenContext;
+export { IInvalidRefreshTokenContext };

@@ -1,8 +1,8 @@
-import AbstractAppError from "../../abstracts/AbstractAppError";
-import IAppError from "../../interface/IAppError";
-import IErrorHandlingStrategy from "../../interface/IErrorHandlingStrategy";
-import ErrorHandlingStrategyRegistry from "../../registries/ErrorHandlingStrategyRegistry";
-import ErrorType from "../ErrorType";
+import { AbstractAppError } from "../abstracts/AbstractAppError";
+import { ErrorHandlingStrategyRegistry } from "../ErrorHandlingStrategyRegistry";
+import { ErrorType } from "../ErrorType";
+import { IAppError } from "../interfaces/IAppError";
+import { IErrorHandlingStrategy } from "../interfaces/IErrorHandlingStrategy";
 
 type NoDataContext = Record<string, any>;
 
@@ -25,4 +25,4 @@ ErrorHandlingStrategyRegistry.instance.registerStrategyFactory(
   () => new NoDataErrorHadnlingStrategy(),
 );
 
-export default NoDataErrorHadnlingStrategy;
+export { NoDataErrorHadnlingStrategy };

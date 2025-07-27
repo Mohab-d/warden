@@ -1,9 +1,9 @@
 import { Schema, ValidationError } from "joi";
-import ISchemaValidator from "../../interface/ISchemaValidator";
-import IInvalidSchemaContext from "../../errorHandler/contextTypes/IInvalidSchemaContext";
-import AbstractAppError from "../../abstracts/AbstractAppError";
-import WardenError from "../../errorHandler/definedError/WardenError";
-import ISchemaValidationResult from "../../interface/ISchemaValidationResult";
+import { WardenError } from "../../errorHandler";
+import { AbstractAppError } from "../../errorHandler/abstracts/AbstractAppError";
+import { IInvalidSchemaContext } from "../../errorHandler/contextTypes/IInvalidSchemaContext";
+import { ISchemaValidator } from "..";
+import { ISchemaValidationResult } from "../interfaces/ISchemaValidationResult";
 
 class JoiSchemaValidator implements ISchemaValidator {
   public validate(schema: Schema, data: object): ISchemaValidationResult {
@@ -31,4 +31,4 @@ class JoiSchemaValidator implements ISchemaValidator {
   }
 }
 
-export default JoiSchemaValidator;
+export { JoiSchemaValidator };

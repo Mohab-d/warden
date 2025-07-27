@@ -1,7 +1,7 @@
 import * as bcrypt from "bcrypt";
 import { IHashStrategy } from "../../interfaces/IHashStrategy";
 import { appConfigs } from "../../../../config/appConfigs";
-import WardenError from "../../../../errorHandler/definedError/WardenError";
+import { WardenError } from "../../../../errorHandler";
 
 class BcryptHashStrategy implements IHashStrategy {
   public async hash(data: string): Promise<string> {

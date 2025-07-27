@@ -1,4 +1,4 @@
-import IHashAlgorithmData from "./IHashAlgorithmData";
+import { IHashAlgorithmData } from "./IHashAlgorithmData";
 
 interface IHashAlgorithmDataParser {
   parseAlgorithmData(hash: string): IHashAlgorithmData;

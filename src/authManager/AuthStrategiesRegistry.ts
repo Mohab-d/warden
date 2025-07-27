@@ -1,4 +1,4 @@
-import WardenError from "../errorHandler/definedError/WardenError";
+import { WardenError } from "../errorHandler";
 import { IAuthStrategy } from "./interfaces/IAuthStrategy";
 
 class AuthStrategiesRegistry {
